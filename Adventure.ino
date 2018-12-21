@@ -40,9 +40,10 @@ int Menge3;
 int Menge4;
 int Menge5;
 int Menge6;
+int Truhe1;
 int Gift;
 int Ware;              // Schnaps usw. zum Verkaufen
-int EnemyHealth
+int EnemyHealth;
 void setup() {
   pinMode(pinButton, INPUT);
   // set up the LCD's number of columns and rows:
@@ -77,6 +78,22 @@ void setup() {
 void loop()
 {
   Serial.println(box, DEC);
+  if ( box == 0 ) {
+    Attack = 1;
+    Defense = 0;
+    Menge1 = 2;
+    Menge2 = 1;
+    Menge3 = 1;
+    Menge4 = 1;
+    Menge5 = 3;
+    Menge6 = 2;
+    Truhe1 = 1;
+    Health = 5;
+    Gift = 0;
+    Ware = 0;
+    Goldmuenzen = 15;
+    box = 1;
+  }
   if ( box == 1 ) {
     lcd.clear();
     lcd.print(F("Du bist an einem"));
@@ -1085,7 +1102,7 @@ void loop()
     while (!digitalRead(pinButton)) {
       delay(100);
     }
-    box =  ;
+    box =  126;
   }
   if ( box == 63 ) {
     lcd.clear();
@@ -1494,10 +1511,10 @@ void loop()
       delay(100);
       sensorValue1 = analogRead(A0);
       if ( sensorValue1 < 261 ) {
-        box = 88;
+        box = 85;
       }
       if ( sensorValue1 > 749 ) {
-        box = 85;
+        box = 88;
       }
     }
   }
@@ -1543,7 +1560,7 @@ void loop()
       }
       if (digitalRead(pinButton)) {
         delay(100);
-        box = ;
+        box = 118;
       }
     }
   }
@@ -1582,10 +1599,10 @@ void loop()
       delay(100);
       sensorValue1 = analogRead(A0);
       if ( sensorValue1 < 261 ) {
-        box = 87;
+        box = 85;
       }
       if ( sensorValue1 > 749 ) {
-        box = 85;
+        box = 87;
       }
       if (digitalRead(pinButton)) {
         delay(100);
@@ -1850,21 +1867,21 @@ void loop()
       box = 83;
     }
     if ( Health < 1 ) {
-      box = 103
+      box = 103;
     }
-    if ( box ==  103 ) {
-      lcd.clear();
-      lcd.print(F("Die Ratten"));
-      lcd.setCursor(0, 1);
-      lcd.print(F("erwischen dich"));
-      while (digitalRead(pinButton)) {
-        delay(100);
-      }
-      while (!digitalRead(pinButton)) {
-        delay(100);
-      }
-      box = 104;
+  }
+  if ( box ==  103 ) {
+    lcd.clear();
+    lcd.print(F("Die Ratten"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("erwischen dich"));
+    while (digitalRead(pinButton)) {
+      delay(100);
     }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 104;
   }
   if ( box ==  104 ) {
     lcd.clear();
@@ -1877,7 +1894,7 @@ void loop()
     while (!digitalRead(pinButton)) {
       delay(100);
     }
-    box = 1;
+    box = 0;
   }
   if ( box == 105 ) {
     lcd.clear();
@@ -1924,7 +1941,7 @@ void loop()
     box = 109;
   }
   if ( box == 109 ) {
-    if ( Truhe == 1 ) {
+    if ( Truhe1 == 1 ) {
       lcd.clear();
       lcd.print(F("findest eine"));
       lcd.setCursor(0, 1);
@@ -1938,19 +1955,19 @@ void loop()
       }
       box = 110;
     }
-    if else ( Truhe == 0 ) {
-        lcd.clear();
-        lcd.print(F("findest eine lee"));
-        lcd.setCursor(0, 1);
-        lcd.print(F("re Schatztruhe"));
-        while (digitalRead(pinButton)) {
-          delay(100);
-        }
-        while (!digitalRead(pinButton)) {
-          delay(100);
-        }
-        box = 11;
+    else if ( Truhe1 == 0 ) {
+      lcd.clear();
+      lcd.print(F("findest eine lee"));
+      lcd.setCursor(0, 1);
+      lcd.print(F("re Schatztruhe"));
+      while (digitalRead(pinButton)) {
+        delay(100);
       }
+      while (!digitalRead(pinButton)) {
+        delay(100);
+      }
+      box = 11;
+    }
   }
   if ( box == 110 ) {
     lcd.clear();
@@ -2130,7 +2147,7 @@ void loop()
       box = 104;
     }
     else if ( Health > 0 ) {
-      box = 122
+      box = 122;
     }
     while (digitalRead(pinButton)) {
       delay(100);
