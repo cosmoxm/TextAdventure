@@ -1091,7 +1091,7 @@ void loop()
     while (!digitalRead(pinButton)) {
       delay(100);
     }
-    box = 125a;
+    box = 125;
   }
   if ( box == 63 ) {
     lcd.clear();
@@ -1588,10 +1588,10 @@ void loop()
       delay(100);
       sensorValue1 = analogRead(A0);
       if ( sensorValue1 < 261 ) {
-        box = 87;
+        box = 85;
       }
       if ( sensorValue1 > 749 ) {
-        box = 85;
+        box = 87;
       }
       if (digitalRead(pinButton)) {
         delay(100);
@@ -1730,19 +1730,19 @@ void loop()
     if ( Gegner1 == 0 ) {
       box = 116;
     }
-  }
-  if ( Gegner1 == 1 ) {
-    lcd.clear();
-    lcd.print(F("Du siehst eine"));
-    lcd.setCursor(0, 1);
-    lcd.print(F("Rattenmeute"));
-    while (digitalRead(pinButton)) {
-      delay(100);
+    if ( Gegner1 == 1 ) {
+      lcd.clear();
+      lcd.print(F("Du siehst eine"));
+      lcd.setCursor(0, 1);
+      lcd.print(F("Rattenmeute"));
+      while (digitalRead(pinButton)) {
+        delay(100);
+      }
+      while (!digitalRead(pinButton)) {
+        delay(100);
+      }
+      box = 97;
     }
-    while (!digitalRead(pinButton)) {
-      delay(100);
-    }
-    box = 97;
   }
   if ( box == 97 ) {
     lcd.clear();
