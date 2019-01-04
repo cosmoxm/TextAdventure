@@ -34,16 +34,20 @@ int Goldmuenzen;
 int Defense;
 int Attack;
 int Health;
+int Glaube;
 int Menge1;
 int Menge2;
 int Menge3;
 int Menge4;
 int Menge5;
 int Menge6;
-int Truhe1;
+int Gegner1;
 int Gift;
 int Ware;              // Schnaps usw. zum Verkaufen
 int EnemyHealth;
+int EnemyDefense;
+int EnemyAttack;
+int EnemyGlaube;
 void setup() {
   pinMode(pinButton, INPUT);
   // set up the LCD's number of columns and rows:
@@ -64,11 +68,12 @@ void setup() {
   Menge4 = 1;
   Menge5 = 3;
   Menge6 = 2;
-  Truhe1 = 1;
+  Gegner1 = 1;
   Health = 5;
   Gift = 0;
   Ware = 0;
   Goldmuenzen = 15;
+  Glaube = 1;
   while (!digitalRead(pinButton)) {
     delay(100);
   }
@@ -78,22 +83,6 @@ void setup() {
 void loop()
 {
   Serial.println(box, DEC);
-  if ( box == 0 ) {
-    Attack = 1;
-    Defense = 0;
-    Menge1 = 2;
-    Menge2 = 1;
-    Menge3 = 1;
-    Menge4 = 1;
-    Menge5 = 3;
-    Menge6 = 2;
-    Truhe1 = 1;
-    Health = 5;
-    Gift = 0;
-    Ware = 0;
-    Goldmuenzen = 15;
-    box = 1;
-  }
   if ( box == 1 ) {
     lcd.clear();
     lcd.print(F("Du bist an einem"));
@@ -1102,7 +1091,7 @@ void loop()
     while (!digitalRead(pinButton)) {
       delay(100);
     }
-    box =  126;
+    box = 125a;
   }
   if ( box == 63 ) {
     lcd.clear();
@@ -1511,10 +1500,10 @@ void loop()
       delay(100);
       sensorValue1 = analogRead(A0);
       if ( sensorValue1 < 261 ) {
-        box = 85;
+        box = 88;
       }
       if ( sensorValue1 > 749 ) {
-        box = 88;
+        box = 85;
       }
     }
   }
@@ -1560,7 +1549,7 @@ void loop()
       }
       if (digitalRead(pinButton)) {
         delay(100);
-        box = 118;
+        box =  119;
       }
     }
   }
@@ -1583,7 +1572,7 @@ void loop()
       }
       if (digitalRead(pinButton)) {
         delay(100);
-        box = 114;
+        box = 119;
       }
     }
   }
@@ -1599,10 +1588,10 @@ void loop()
       delay(100);
       sensorValue1 = analogRead(A0);
       if ( sensorValue1 < 261 ) {
-        box = 85;
+        box = 87;
       }
       if ( sensorValue1 > 749 ) {
-        box = 87;
+        box = 85;
       }
       if (digitalRead(pinButton)) {
         delay(100);
@@ -1738,6 +1727,11 @@ void loop()
     }
   }
   if ( box == 96 ) {
+    if ( Gegner1 == 0 ) {
+      box = 116;
+    }
+  }
+  if ( Gegner1 == 1 ) {
     lcd.clear();
     lcd.print(F("Du siehst eine"));
     lcd.setCursor(0, 1);
@@ -1848,7 +1842,7 @@ void loop()
       }
       if (digitalRead(pinButton)) {
         delay(100);
-        box = 103;
+        box = 113;
       }
     }
   }
@@ -1869,19 +1863,19 @@ void loop()
     if ( Health < 1 ) {
       box = 103;
     }
-  }
-  if ( box ==  103 ) {
-    lcd.clear();
-    lcd.print(F("Die Ratten"));
-    lcd.setCursor(0, 1);
-    lcd.print(F("erwischen dich"));
-    while (digitalRead(pinButton)) {
-      delay(100);
+    if ( box ==  103 ) {
+      lcd.clear();
+      lcd.print(F("Die Ratten"));
+      lcd.setCursor(0, 1);
+      lcd.print(F("erwischen dich"));
+      while (digitalRead(pinButton)) {
+        delay(100);
+      }
+      while (!digitalRead(pinButton)) {
+        delay(100);
+      }
+      box = 104;
     }
-    while (!digitalRead(pinButton)) {
-      delay(100);
-    }
-    box = 104;
   }
   if ( box ==  104 ) {
     lcd.clear();
@@ -1894,7 +1888,7 @@ void loop()
     while (!digitalRead(pinButton)) {
       delay(100);
     }
-    box = 0;
+    box = 1;
   }
   if ( box == 105 ) {
     lcd.clear();
@@ -1911,17 +1905,20 @@ void loop()
   }
   if ( box == 106 ) {
     EnemyHealth = 2;
+    EnemyDefense = 1;
+    EnemyGlaube = 0;
+    EnemyAttack = 3;
     box = 107;
   }
   if ( box == 107 ) {
-    if ( 3 - Defense > 0 ) {
-      Health -= 3 - Defense;
+    if ( EnemyAttack - Defense > 0 ) {
+      Health -= EnemyAttack - Defense;
       if ( Health < 1 ) {
         box = 103;
       }
     }
-    if ( Attack - 1 > 0 ) {
-      EnemyHealth -= Attack - 1;
+    if ( Attack - EnemyDefense > 0 ) {
+      EnemyHealth -= Attack - EnemyDefense;
       if ( EnemyHealth < 1 ) {
         box = 108;
       }
@@ -1941,33 +1938,17 @@ void loop()
     box = 109;
   }
   if ( box == 109 ) {
-    if ( Truhe1 == 1 ) {
-      lcd.clear();
-      lcd.print(F("findest eine"));
-      lcd.setCursor(0, 1);
-      lcd.print(F("Schatztruhe"));
-      Truhe1 = 0;
-      while (digitalRead(pinButton)) {
-        delay(100);
-      }
-      while (!digitalRead(pinButton)) {
-        delay(100);
-      }
-      box = 110;
+    lcd.clear();
+    lcd.print(F("findest eine"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("Schatztruhe"));
+    while (digitalRead(pinButton)) {
+      delay(100);
     }
-    else if ( Truhe1 == 0 ) {
-      lcd.clear();
-      lcd.print(F("findest eine lee"));
-      lcd.setCursor(0, 1);
-      lcd.print(F("re Schatztruhe"));
-      while (digitalRead(pinButton)) {
-        delay(100);
-      }
-      while (!digitalRead(pinButton)) {
-        delay(100);
-      }
-      box = 11;
+    while (!digitalRead(pinButton)) {
+      delay(100);
     }
+    box = 110;
   }
   if ( box == 110 ) {
     lcd.clear();
@@ -2012,9 +1993,30 @@ void loop()
     while (!digitalRead(pinButton)) {
       delay(100);
     }
-    box = 113;
+    box = 115;
   }
   if ( box == 113 ) {
+    EnemyHealth = 2;
+    EnemyDefense = 1;
+    EnemyGlaube = 0;
+    EnemyAttack = 3;
+    box = 114;
+  }
+  if ( box == 114 ) {
+    if ( EnemyAttack - Defense > 0 ) {
+      Health -= EnemyAttack - Defense;
+      if ( Health < 1 ) {
+        box = 103;
+      }
+    }
+    if ( Glaube - EnemyGlaube > 0 ) {
+      EnemyHealth -= Glaube - EnemyGlaube;
+      if ( EnemyHealth < 1 ) {
+        box = 108;
+      }
+    }
+  }
+  if ( box == 115 ) {
     lcd.clear();
     lcd.print(F("Du gehst zurueck"));
     lcd.setCursor(0, 1);
@@ -2025,9 +2027,9 @@ void loop()
     while (!digitalRead(pinButton)) {
       delay(100);
     }
-    box = 84;
+    box = 92;
   }
-  if ( box == 114 ) {
+  if ( box == 116 ) {
     lcd.clear();
     lcd.print(F("Du kommst zu"));
     lcd.setCursor(0, 1);
@@ -2038,122 +2040,64 @@ void loop()
     while (!digitalRead(pinButton)) {
       delay(100);
     }
-    box = 115;
-  }
-  if ( box == 115 ) {
-    lcd.clear();
-    lcd.print(F("Wohin willst"));
-    lcd.setCursor(0, 1);
-    lcd.print(F("du gehen?"));
-    while ( sensorValue1 < 261 || sensorValue1 > 749 ) {
-      sensorValue1 = analogRead(A0);
-    }
-    while ( box == 115 ) {
-      delay(100);
-      sensorValue1 = analogRead(A0);
-      if ( sensorValue1 < 261 ) {
-        box = 116;
-      }
-      if ( sensorValue1 > 749 ) {
-        box = 117;
-      }
-    }
-  }
-  if ( box == 116 ) {
-    lcd.clear();
-    lcd.print(F("Nach rechts"));
-    lcd.setCursor(0, 1);
-    lcd.print(F(""));
-    while ( sensorValue1 < 261 || sensorValue1 > 749 ) {
-      sensorValue1 = analogRead(A0);
-    }
-    while ( box == 116 ) {
-      delay(100);
-      sensorValue1 = analogRead(A0);
-      if ( sensorValue1 < 261 ) {
-        box = 117;
-      }
-      if ( sensorValue1 > 749 ) {
-        box = 117;
-      }
-      if (digitalRead(pinButton)) {
-        delay(100);
-        box = 118;
-      }
-    }
+    box = 117;
   }
   if ( box == 117 ) {
     lcd.clear();
-    lcd.print(F("Nach links"));
+    lcd.print(F("Du erkennst sie"));
     lcd.setCursor(0, 1);
-    lcd.print(F(""));
-    while ( sensorValue1 < 261 || sensorValue1 > 749 ) {
-      sensorValue1 = analogRead(A0);
-    }
-    while ( box == 117 ) {
-      delay(100);
-      sensorValue1 = analogRead(A0);
-      if ( sensorValue1 < 261 ) {
-        box = 116;
-      }
-      if ( sensorValue1 > 749 ) {
-        box = 116;
-      }
-      if (digitalRead(pinButton)) {
-        delay(100);
-        box = 83;
-      }
-    }
-  }
-  if ( box == 118 ) {
-    lcd.clear();
-    lcd.print(F("Der Boden wird"));
-    lcd.setCursor(0, 1);
-    lcd.print(F("schlammig"));
+    lcd.print(F("wieder"));
     while (digitalRead(pinButton)) {
       delay(100);
     }
     while (!digitalRead(pinButton)) {
       delay(100);
     }
-    box = 119;
+    box = 118;
+  }
+  if ( box == 118 ) {
+    lcd.clear();
+    lcd.print(F("Du bist im"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("Kreis gelaufen"));
+    while (digitalRead(pinButton)) {
+      delay(100);
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 92;
   }
   if ( box == 119 ) {
     lcd.clear();
-    lcd.print(F("Moechtest du"));
+    lcd.print(F("Du kommst zu"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("einem Moor"));
+    while (digitalRead(pinButton)) {
+      delay(100);
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 120;
+  }
+  if ( box == 120 ) {
+    lcd.clear();
+    lcd.print(F("Willst du"));
     lcd.setCursor(0, 1);
     lcd.print(F("weitergehen?"));
     while ( sensorValue1 < 261 || sensorValue1 > 749 ) {
       sensorValue1 = analogRead(A0);
     }
-    while ( box == 119 ) {
+    while ( box == 120 ) {
       delay(100);
       sensorValue1 = analogRead(A0);
       if ( sensorValue1 < 261 ) {
-        box = 120;
+        box = 122;
       }
       if ( sensorValue1 > 749 ) {
         box = 121;
       }
-    }
-  }
-  if ( box == 120 ) {
-    lcd.clear();
-    lcd.print(F("Du versinkst"));
-    lcd.setCursor(0, 1);
-    lcd.print(F(""));
-    Health -= 1;
-    if ( Health < 1 ) {
-      box = 104;
-    }
-    else if ( Health > 0 ) {
-      box = 122;
-    }
-    while (digitalRead(pinButton)) {
-      delay(100);
-    }
-    while (!digitalRead(pinButton)) {
-      delay(100);
     }
   }
   if ( box == 121 ) {
@@ -2168,76 +2112,57 @@ void loop()
       delay(100);
       sensorValue1 = analogRead(A0);
       if ( sensorValue1 < 261 ) {
-        box = 114;
+        box = 92;
       }
       if ( sensorValue1 > 749 ) {
-        box = 119;
+        box = 120;
       }
     }
   }
   if ( box == 122 ) {
     lcd.clear();
-    lcd.print(F("Willst du"));
+    lcd.print(F("Du gehst weiter"));
     lcd.setCursor(0, 1);
-    lcd.print(F("weitergehen?"));
-    while ( sensorValue1 < 261 || sensorValue1 > 749 ) {
-      sensorValue1 = analogRead(A0);
-    }
-    while ( box == 122 ) {
+    lcd.print(F("und"));
+    while (digitalRead(pinButton)) {
       delay(100);
-      sensorValue1 = analogRead(A0);
-      if ( sensorValue1 < 261 ) {
-        box = 124;
-      }
-      if ( sensorValue1 > 749 ) {
-        box = 123;
-      }
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    Health -= 1;
+    if ( Health > 0 ) {
+      box = 123;
+    }
+    if ( Health < 1 ) {
+      box = 124;
     }
   }
   if ( box == 123 ) {
     lcd.clear();
-    lcd.print(F("Willst du"));
+    lcd.print(F("der Boden"));
     lcd.setCursor(0, 1);
-    lcd.print(F("zurueckgehen?"));
-    while ( sensorValue1 < 261 || sensorValue1 > 749 ) {
-      sensorValue1 = analogRead(A0);
-    }
-    while ( box == 123 ) {
+    lcd.print(F("wird fester"));
+    while (digitalRead(pinButton)) {
       delay(100);
-      sensorValue1 = analogRead(A0);
-      if ( sensorValue1 < 261 ) {
-        box = 114;
-      }
-      if ( sensorValue1 > 749 ) {
-        box = 122;
-      }
     }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 62;
   }
   if ( box == 124 ) {
     lcd.clear();
-    lcd.print(F("Der Boden wird"));
+    lcd.print(F("Du versinkst"));
     lcd.setCursor(0, 1);
-    lcd.print(F("fester"));
+    lcd.print(F(""));
     while (digitalRead(pinButton)) {
       delay(100);
     }
     while (!digitalRead(pinButton)) {
       delay(100);
     }
-    box = 125;
-  }
-  if ( box == 125 ) {
-    lcd.clear();
-    lcd.print(F("Du betrittst"));
-    lcd.setCursor(0, 1);
-    lcd.print(F("den Wald"));
-    while (digitalRead(pinButton)) {
-      delay(100);
-    }
-    while (!digitalRead(pinButton)) {
-      delay(100);
-    }
-    box = 126;
+    box = 104;
   }
 }
 /*********************************************************************************************************
