@@ -2553,7 +2553,7 @@ void loop()
       delay(100);
       sensorValue1 = analogRead(A0);
       if ( sensorValue1 < 261 ) {
-        box = Es wird Dunkel und Heulen;
+        box = 199;
       }
       if ( sensorValue1 > 749 ) {
         box = 144;
@@ -3160,7 +3160,7 @@ void loop()
     while (!digitalRead(pinButton)) {
       delay(100);
     }
-    box = Der Wald Tag 1;
+    box = 666666;
   }
   if ( box == 180 ) {
     lcd.clear();
@@ -3464,6 +3464,233 @@ void loop()
       delay(100);
     }
     box = 187;
+  }
+  if ( box == 199 ) {
+    lcd.clear();
+    lcd.print(F("Du gehst"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("nach Sueden"));
+    while (digitalRead(pinButton)) {
+      delay(100);
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 200;
+  }
+  if ( box == 200 ) {
+    lcd.clear();
+    lcd.print(F("Es wird"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("Dunkel"));
+    while (digitalRead(pinButton)) {
+      delay(100);
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 201;
+  }
+  if ( box == 201 ) {
+    lcd.clear();
+    lcd.print(F("Du hoerst"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("ein Heulen"));
+    while (digitalRead(pinButton)) {
+      delay(100);
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 202;
+  }
+  if ( box == 202 ) {
+    lcd.clear();
+    lcd.print(F("Du hoerst"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("ein Heulen"));
+    while (digitalRead(pinButton)) {
+      delay(100);
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 203;
+  }
+  if ( box == 203 ) {
+    lcd.clear();
+    lcd.print(F("Was tust du?"));
+    lcd.setCursor(0, 1);
+    lcd.print(F(""));
+    while ( sensorValue1 < 261 || sensorValue1 > 749 ) {
+      sensorValue1 = analogRead(A0);
+    }
+    while ( box == 203 ) {
+      delay(100);
+      sensorValue1 = analogRead(A0);
+      if ( sensorValue1 < 261 ) {
+        box = 204;
+      }
+      if ( sensorValue1 > 749 ) {
+        box = 205;
+      }
+    }
+  }
+  if ( box == 204 ) {
+    lcd.clear();
+    lcd.print(F("Hingehen"));
+    lcd.setCursor(0, 1);
+    lcd.print(F(""));
+    while ( sensorValue1 < 261 || sensorValue1 > 749 ) {
+      sensorValue1 = analogRead(A0);
+    }
+    while ( box == 204 ) {
+      delay(100);
+      sensorValue1 = analogRead(A0);
+      if ( sensorValue1 < 261 ) {
+        box = 205;
+      }
+      if ( sensorValue1 > 749 ) {
+        box = 205;
+      }
+      if (digitalRead(pinButton)) {
+        delay(100);
+        box = 207;
+      }
+    }
+  }
+  if ( box == 205 ) {
+    lcd.clear();
+    lcd.print(F("Dich davon"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("entfernen"));
+    while ( sensorValue1 < 261 || sensorValue1 > 749 ) {
+      sensorValue1 = analogRead(A0);
+    }
+    while ( box == 205 ) {
+      delay(100);
+      sensorValue1 = analogRead(A0);
+      if ( sensorValue1 < 261 ) {
+        box = 204;
+      }
+      if ( sensorValue1 > 749 ) {
+        box = 204;
+      }
+      if (digitalRead(pinButton)) {
+        delay(100);
+        box = 206;
+      }
+    }
+  }
+  if ( box == 206 ) {
+    lcd.clear();
+    lcd.print(F("Du gehst von"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("dem Heulen weg"));
+    while (digitalRead(pinButton)) {
+      delay(100);
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 207;
+  }
+  if ( box == 207 ) {
+    lcd.clear();
+    lcd.print(F("Du bist sehr"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("Muede und"));
+    while (digitalRead(pinButton)) {
+      delay(100);
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 208;
+  }
+  if ( box == 208 ) {
+    lcd.clear();
+    lcd.print(F("verlaeufst dich"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("im Wald"));
+    Health -= 1;
+    if ( Health < 1 ) {
+      box = 210;
+    }
+    else if ( Health > 0 ) {
+      box = 209;
+    }
+    while (digitalRead(pinButton)) {
+      delay(100);
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+  }
+  if ( box == 209 ) {
+    lcd.clear();
+    lcd.print(F("Du schlaefst"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("irgendwann ein"));
+    while (digitalRead(pinButton)) {
+      delay(100);
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 211;
+  }
+  if ( box == 210 ) {
+    lcd.clear();
+    lcd.print(F("Du faellst"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("vor Muedigkeit"));
+    while (digitalRead(pinButton)) {
+      delay(100);
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 212;
+  }
+  if ( box == 211 ) {
+    lcd.clear();
+    lcd.print(F("wachst am naechs"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("ten Tag auf"));
+    while (digitalRead(pinButton)) {
+      delay(100);
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 213;
+  }
+  if ( box == 212 ) {
+    lcd.clear();
+    lcd.print(F("um und faellst"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("in einen Fluss"));
+    while (digitalRead(pinButton)) {
+      delay(100);
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 104;
+  }
+  if ( box == 213 ) {
+    lcd.clear();
+    lcd.print(F("Du siehst eine"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("verlassene Burg"));
+    while (digitalRead(pinButton)) {
+      delay(100);
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 214;
   }
 }
 /*********************************************************************************************************
