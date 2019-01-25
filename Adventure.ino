@@ -43,6 +43,9 @@ int Menge5;
 int Menge6;
 int Menge7;
 int Menge8;
+int Menge9;
+int Menge10;
+int Menge11;
 int Gegner1;           // ob der Gegner schon besiegt wurde
 int Haendler1;         // ob der AnfangsHaendler aktiviert ist
 int Gift;              // unnoetiges Zeug zum spaeteren Verkauf
@@ -73,6 +76,9 @@ void setup() {
   Menge6 = 2;
   Menge7 = 1;
   Menge8 = 1;
+  Menge9 = 4;
+  Menge10 = 1;
+  Menge11 = 1;
   Gegner1 = 1;
   Haendler1 = 0;
   Health = 5;
@@ -100,7 +106,11 @@ void loop()
     Menge6 = 2;
     Menge7 = 1;
     Menge8 = 1;
+    Menge9 = 4;
+    Menge10 = 1;
+    Menge11 = 1;
     Gegner1 = 1;
+    Haendler1 = 0;
     Health = 5;
     Gift = 0;
     Ware = 0;
@@ -648,39 +658,41 @@ void loop()
       lcd.print(F("Moechtest du"));
       lcd.setCursor(0, 1);
       lcd.print(F("hingehen?"));
+      while ( box == 34 ) {
+        delay(100);
+        sensorValue1 = analogRead(A0);
+        if ( sensorValue1 < 261 ) {
+          box = 214;
+        }
+        if ( sensorValue1 > 749 ) {
+          box = 216;
+        }
+      }
     }
-    while ( box == 34 ) {
-      delay(100);
-      sensorValue1 = analogRead(A0);
-      if ( sensorValue1 < 261 ) {
-        box = 214;
-      }
-      if ( sensorValue1 > 749 ) {
-        box = 216;
-      }
-    }
-  }
-  else if ( Haendler1 == 0 ) {
-    lcd.clear();
-    lcd.print(F("Moechtest du"));
-    lcd.setCursor(0, 1);
-    lcd.print(F("ihm helfen"));
-    while ( box == 34 ) {
-      delay(100);
-      sensorValue1 = analogRead(A0);
-      if ( sensorValue1 < 261 ) {
-        box = 35;
-      }
-      if ( sensorValue1 > 749 ) {
-        box = 217;
+    else if ( Haendler1 == 0 ) {
+      lcd.clear();
+      lcd.print(F("Moechtest du"));
+      lcd.setCursor(0, 1);
+      lcd.print(F("ihm helfen"));
+      while ( box == 34 ) {
+        delay(100);
+        sensorValue1 = analogRead(A0);
+        if ( sensorValue1 < 261 ) {
+          box = 35;
+        }
+        if ( sensorValue1 > 749 ) {
+          box = 217;
+        }
       }
     }
   }
   if ( box == 36 ) {
-    lcd.clear();
-    lcd.print(F("und hoerst Rufe"));
-    lcd.setCursor(0, 1);
-    lcd.print(F("aus Norden"));
+    if ( Haendler1 == 0 ) {
+      lcd.clear();
+      lcd.print(F("und hoerst Rufe"));
+      lcd.setCursor(0, 1);
+      lcd.print(F("aus Norden"));
+    }
     while (digitalRead(pinButton)) {
       delay(100);
     }
@@ -701,6 +713,7 @@ void loop()
       delay(100);
     }
     box = 37;
+    Haendler1 = 1;
   }
   if ( box == 37 ) {
     lcd.clear();
@@ -3185,7 +3198,7 @@ void loop()
     while (!digitalRead(pinButton)) {
       delay(100);
     }
-    box = 666666;
+    box = 218;
   }
   if ( box == 180 ) {
     lcd.clear();
@@ -3680,9 +3693,9 @@ void loop()
   }
   if ( box == 211 ) {
     lcd.clear();
-    lcd.print(F("wachst am naechs"));
+    lcd.print(F("und wachst am na"));
     lcd.setCursor(0, 1);
-    lcd.print(F("ten Tag auf"));
+    lcd.print(F("echsten Tag auf"));
     while (digitalRead(pinButton)) {
       delay(100);
     }
@@ -3715,7 +3728,7 @@ void loop()
     while (!digitalRead(pinButton)) {
       delay(100);
     }
-    box = WEITER BEI CA 220;
+    box = 231;
   }
   if ( box == 214 ) {
     lcd.clear();
@@ -3742,7 +3755,7 @@ void loop()
       delay(100);
       sensorValue1 = analogRead(A0);
       if ( sensorValue1 < 261 ) {
-        box = 217;
+        box = 219;
       }
       if ( sensorValue1 > 749 ) {
         box = 216;
@@ -3764,7 +3777,7 @@ void loop()
         box = 23;
       }
       if ( sensorValue1 > 749 ) {
-        box = 215;
+        box = 226;
       }
     }
   }
@@ -3786,6 +3799,272 @@ void loop()
         box = 34;
       }
     }
+  }
+  if ( box == 218 ) {
+    lcd.clear();
+    lcd.print(F("Du wachst spaet"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("morgens auf"));
+    while (digitalRead(pinButton)) {
+      delay(100);
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 213;
+  }
+  if ( box == 219 ) {
+    lcd.clear();
+    lcd.print(F("Er bietet"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("dir..."));
+    while ( sensorValue1 < 261 || sensorValue1 > 749 ) {
+      sensorValue1 = analogRead(A0);
+    }
+    while ( box == 219 ) {
+      delay(100);
+      sensorValue1 = analogRead(A0);
+      if ( sensorValue1 < 261 ) {
+        box = 220;
+      }
+      if ( sensorValue1 > 749 ) {
+        box = 222;
+      }
+    }
+  }
+  if ( box == 220 ) {
+    if ( Menge9 > 0 ) {
+      lcd.clear();
+      lcd.print(F("Schwarzes Pulver"));
+      lcd.setCursor(0, 1);
+      lcd.print(F("fuer 5 Gold an"));
+      while ( sensorValue1 < 261 || sensorValue1 > 749 ) {
+        sensorValue1 = analogRead(A0);
+      }
+      while ( box == 220 ) {
+        delay(100);
+        sensorValue1 = analogRead(A0);
+        if ( sensorValue1 < 261 ) {
+          box = 221;
+        }
+        if ( sensorValue1 > 749 ) {
+          box = 223;
+        }
+        if (digitalRead(pinButton)) {
+          delay(100);
+          if ( Goldmuenzen < 5 ) {
+            box = 224;
+          }
+          else {
+            box = 225;
+            Menge9 -= 1;
+            Goldmuenzen -= 5;
+            Ware += 2;
+          }
+        }
+      }
+    }
+    else if ( Menge9 < 1 ) {
+      box = 221;
+    }
+  }
+  if ( box == 221 ) {
+    if ( Menge10 > 0 ) {
+      lcd.clear();
+      lcd.print(F("Das TOTE BUCH"));
+      lcd.setCursor(0, 1);
+      lcd.print(F("fuer 100 Gold an"));
+      while ( sensorValue1 < 261 || sensorValue1 > 749 ) {
+        sensorValue1 = analogRead(A0);
+      }
+      while ( box == 221 ) {
+        delay(100);
+        sensorValue1 = analogRead(A0);
+        if ( sensorValue1 < 261 ) {
+          box = 222;
+        }
+        if ( sensorValue1 > 749 ) {
+          box = 221;
+        }
+        if (digitalRead(pinButton)) {
+          delay(100);
+          if ( Goldmuenzen < 100 ) {
+            box = 224;
+            Goldmuenzen -= 100;
+            Glaube += 5;
+            Menge10 -= 1;
+          }
+          else {
+            box = 225;
+          }
+        }
+      }
+    }
+    else if ( Menge10 < 1 ) {
+      box = 222;
+    }
+  }
+  if ( box == 222 ) {
+    if ( Menge11 > 0 ) {
+      lcd.clear();
+      lcd.print(F("Ein Easteregg"));
+      lcd.setCursor(0, 1);
+      lcd.print(F("fuer 0 Gold an"));
+      while ( sensorValue1 < 261 || sensorValue1 > 749 ) {
+        sensorValue1 = analogRead(A0);
+      }
+      while ( box == 222 ) {
+        delay(100);
+        sensorValue1 = analogRead(A0);
+        if ( sensorValue1 < 261 ) {
+          box = 223;
+        }
+        if ( sensorValue1 > 749 ) {
+          box = 221;
+        }
+        if (digitalRead(pinButton)) {
+          delay(100);
+          box = 227;
+        }
+      }
+    }
+    else if ( Menge11 < 1 ) {
+      box = 223;
+      Menge11 -= 1;
+    }
+  }
+  if ( box == 223 ) {
+    lcd.clear();
+    lcd.print(F("Doch nichts"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("kaufen"));
+    while ( sensorValue1 < 261 || sensorValue1 > 749 ) {
+      sensorValue1 = analogRead(A0);
+    }
+    while ( box == 223 ) {
+      delay(100);
+      sensorValue1 = analogRead(A0);
+      if ( sensorValue1 < 261 ) {
+        box = 220;
+      }
+      if ( sensorValue1 > 749 ) {
+        box = 222;
+      }
+      if (digitalRead(pinButton)) {
+        delay(100);
+        box = 226;
+      }
+    }
+  }
+  if ( box == 224 ) {
+    lcd.clear();
+    lcd.print(F("Du hast nicht"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("genug Gold"));
+    while (digitalRead(pinButton)) {
+      delay(100);
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 225;
+  }
+  if ( box == 225 ) {
+    lcd.clear();
+    lcd.print(F("Willst du noch"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("etwas kaufen?"));
+    while ( sensorValue1 < 261 || sensorValue1 > 749 ) {
+      sensorValue1 = analogRead(A0);
+    }
+    while ( box == 225 ) {
+      delay(100);
+      sensorValue1 = analogRead(A0);
+      if ( sensorValue1 < 261 ) {
+        box = 219;
+      }
+      if ( sensorValue1 > 749 ) {
+        box = 226;
+      }
+    }
+  }
+  if ( box == 226 ) {
+    lcd.clear();
+    lcd.print(F("Willst du"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("zur Burg gehen?"));
+    while ( sensorValue1 < 261 || sensorValue1 > 749 ) {
+      sensorValue1 = analogRead(A0);
+    }
+    while ( box == 226 ) {
+      delay(100);
+      sensorValue1 = analogRead(A0);
+      if ( sensorValue1 < 261 ) {
+        box = 21;
+      }
+      if ( sensorValue1 > 749 ) {
+        box = 215;
+      }
+    }
+  }
+  if ( box == 227 ) {
+    lcd.clear();
+    lcd.print(F("Herzlichen"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("Glueckwunsch!"));
+    while (digitalRead(pinButton)) {
+      delay(100);
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 228;
+  }
+  if ( box == 228 ) {
+    lcd.clear();
+    lcd.print(F("Du hast das East"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("eregg gefunden"));
+    while (digitalRead(pinButton)) {
+      delay(100);
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 229;
+  }
+  if ( box == 229 ) {
+    lcd.clear();
+    lcd.print(F("Willst du eine"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("Belohnung haben?"));
+    while ( sensorValue1 < 261 || sensorValue1 > 749 ) {
+      sensorValue1 = analogRead(A0);
+    }
+    while ( box == 229 ) {
+      delay(100);
+      sensorValue1 = analogRead(A0);
+      if ( sensorValue1 < 261 ) {
+        box = 230;
+      }
+      if ( sensorValue1 > 749 ) {
+        box = 225;
+      }
+    }
+  }
+  if ( box == 230 ) {
+    lcd.clear();
+    lcd.print(F("Du hast etwas"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("Gold erhalten"));
+    Goldmuenzen += 5;
+    while (digitalRead(pinButton)) {
+      delay(100);
+    }
+    while (!digitalRead(pinButton)) {
+      delay(100);
+    }
+    box = 225;
   }
 }
 /*********************************************************************************************************
