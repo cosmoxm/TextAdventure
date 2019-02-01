@@ -1,0 +1,39 @@
+bool isJoyUsed()
+{
+  int JoystickValue = analogRead(A0);
+
+  if ( JoystickValue > 490 && JoystickValue < 520 ) {
+    return false;
+  }
+
+  return true;
+}
+
+int joyStatus()
+{
+  int JoystickValue = analogRead(A0);
+
+  if ( JoystickValue < 509 ) {
+    return 1;
+  }
+  else if ( JoystickValue > 509 ) {
+    return 0;
+  }
+
+  return -1;
+}
+
+int makeChoice(int highBox, int lowBox)
+{
+  while (true) {
+    if (joyIsUsed()) {
+      break;
+    }
+  }
+
+  while (true) {
+
+
+
+  }
+}
