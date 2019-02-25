@@ -539,6 +539,14 @@ void loop()
     Button();
     box = 19;
   }
+  if ( box == 42 ) {
+    lcd.clear();
+    lcd.print(F("Es ist dunkel"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("und unheimlich"));
+    Button();
+    box = 83;
+  }
   if ( box == 43 ) {
     lcd.clear();
     lcd.print(F("Du gehst auf"));
@@ -918,14 +926,6 @@ void loop()
     Button();
     box = 60;
   }
-  if ( box == 42 ) {
-    lcd.clear();
-    lcd.print(F("Es ist dunkel"));
-    lcd.setCursor(0, 1);
-    lcd.print(F("und unheimlich"));
-    Button();
-    box = 83;
-  }
   if ( box == 83 ) {
     lcd.clear();
     lcd.print(F("Du kommst zu"));
@@ -1174,6 +1174,7 @@ void loop()
     }
     Button();
     box = 115;
+    Gegner1 = 0;
   }
   if ( box == 113 ) {
     EnemyHealth = 2;
