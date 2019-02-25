@@ -48,7 +48,6 @@ int Menge10;
 int Menge11;
 int Gegner1;           // ob der Gegner schon besiegt wurde
 int Haendler1;         // ob der AnfangsHaendler aktiviert ist
-int Gift;              // unnoetiges Zeug zum spaeteren Verkauf
 int Ware;              // Dinge zum Verkaufen
 int EnemyHealth;        // gegnerisches Leben
 int EnemyDefense;       // gegnerische Ruestung
@@ -82,7 +81,6 @@ void setup() {
   Gegner1 = 1;
   Haendler1 = 0;
   Health = 5;
-  Gift = 0;
   Ware = 0;
   Goldmuenzen = 15;
   Glaube = 1;
@@ -194,7 +192,6 @@ void loop()
     Gegner1 = 1;
     Haendler1 = 0;
     Health = 5;
-    Gift = 0;
     Ware = 0;
     Goldmuenzen = 15;
     Glaube = 1;
@@ -750,7 +747,6 @@ void loop()
       box = AMakeChoice(67, 69, 70);
       if ( box == 70 ) {
         Goldmuenzen -= 30;
-        Gift += 1;
         Menge4 -= 1;
       }
     }
@@ -1317,26 +1313,21 @@ void loop()
     lcd.print(F("Er bietet"));
     lcd.setCursor(0, 1);
     lcd.print(F("dir..."));
-    box = makeChoice(130, 131);
+    box = makeChoice(135, 130);
   }
   if ( box == 130 ) {
     if ( Menge7 < 1 ) {
       box = 131;
     }
     if ( Menge7 > 0 ) {
-      if ( Gift == 1 ) {
-        box = 132;
-      }
-      else if ( Gift == 0 ) {
-        lcd.clear();
-        lcd.print(F("Ein Amulett"));
-        lcd.setCursor(0, 1);
-        lcd.print(F("fuer 50 Gold"));
-        box = AMakeChoice(131, 131, 133);
-        if ( box == 133 ) {
-          if ( Goldmuenzen < 50 ) {
-            box = 137;
-          }
+      lcd.clear();
+      lcd.print(F("Ein Amulett"));
+      lcd.setCursor(0, 1);
+      lcd.print(F("fuer 50 Gold"));
+      box = AMakeChoice(131, 135, 132);
+      if ( box == 132 ) {
+        if ( Goldmuenzen < 50 ) {
+          box = 137;
         }
       }
     }
@@ -1349,9 +1340,9 @@ void loop()
       lcd.clear();
       lcd.print(F("Einen Trank"));
       lcd.setCursor(0, 1);
-      lcd.print(F("und 25 Gold"));
-      box = AMakeChoice(130, 130, 134);
-      if ( box == 134 ) {
+      lcd.print(F("fuer 25 Gold"));
+      box = AMakeChoice(135, 130, 133);
+      if ( box == 133 ) {
         if ( Goldmuenzen < 25 ) {
           box = 137;
         }
@@ -1359,13 +1350,6 @@ void loop()
     }
   }
   if ( box == 132 ) {
-    lcd.clear();
-    lcd.print(F("Fuer eine"));
-    lcd.setCursor(0, 1);
-    lcd.print(F("Giftphiole"));
-    box = AMakeChoice(131, 131, 136);
-  }
-  if ( box == 133 ) {
     Menge7 -= 1;
     Goldmuenzen -= 50;
     Glaube += 2;
@@ -1376,7 +1360,7 @@ void loop()
     Button();
     box = 139;
   }
-  if ( box == 134 ) {
+  if ( box == 133 ) {
     Menge8 -= 1;
     Goldmuenzen -= 25;
     Health = 6;
@@ -1385,9 +1369,9 @@ void loop()
     lcd.setCursor(0, 1);
     lcd.print(F("und fuehlst dich"));
     Button();
-    box = 135;
+    box = 134;
   }
-  if ( box == 135 ) {
+  if ( box == 134 ) {
     lcd.clear();
     lcd.print(F("sehr erfischt"));
     lcd.setCursor(0, 1);
@@ -1395,16 +1379,13 @@ void loop()
     Button();
     box = 139;
   }
-  if ( box == 136 ) {
-    Menge7 -= 1;
-    Glaube += 2;
-    Gift = 0;
+  if ( box == 135 ) {
     lcd.clear();
-    lcd.print(F("Du kaufst das"));
+    lcd.print(F("Doch nichts"));
     lcd.setCursor(0, 1);
-    lcd.print(F("Amulett"));
-    Button();
-    box = 139;
+    lcd.print(F("kaufen"));
+    box = AMakeChoice(130, 131, 140);
+    }
   }
   if ( box == 137 ) {
     lcd.clear();
