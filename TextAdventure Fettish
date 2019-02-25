@@ -2130,6 +2130,7 @@ void loop()
   }
   if ( box == 222 ) {
     if ( Menge11 > 0 ) {
+      Menge11 -= 1;
       lcd.clear();
       lcd.print(F("Ein Easteregg"));
       lcd.setCursor(0, 1);
@@ -2138,7 +2139,6 @@ void loop()
     }
     else if ( Menge11 < 1 ) {
       box = 223;
-      Menge11 -= 1;
     }
   }
   if ( box == 223 ) {
