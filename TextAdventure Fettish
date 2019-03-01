@@ -48,6 +48,7 @@ int Menge10;
 int Menge11;
 int Gegner1;           // ob der Gegner schon besiegt wurde
 int Haendler1;         // ob der AnfangsHaendler aktiviert ist
+int Easteregg;         // ob du das Easteregg gefunden hast
 int Ware;              // Dinge zum Verkaufen
 int EnemyHealth;        // gegnerisches Leben
 int EnemyDefense;       // gegnerische Ruestung
@@ -80,6 +81,7 @@ void setup() {
   Menge11 = 1;
   Gegner1 = 1;
   Haendler1 = 0;
+  Easteregg = 0;
   Health = 5;
   Ware = 0;
   Goldmuenzen = 15;
@@ -2186,6 +2188,7 @@ void loop()
     lcd.print(F("Willst du eine"));
     lcd.setCursor(0, 1);
     lcd.print(F("Belohnung haben?"));
+    Easteregg = 1;
     box = makeChoice(230, 225);
   }
   if ( box == 230 ) {
@@ -2230,19 +2233,56 @@ void loop()
     box = 235;
   }
   if ( box == 235 ) {
-    lcd.clear();
-    lcd.print(F("Um das Spiel no"));
-    lcd.setCursor(0, 1);
-    lcd.print(F("chmal zu spielen"));
-    Button();
-    box = 236;
-  }
-  if ( box == 236 ) {
-    lcd.clear();
-    lcd.print(F("Druecke den"));
-    lcd.setCursor(0, 1);
-    lcd.print(F("Reset-Knopf"));
-    Button();
+    if ( Easteregg == 1 ) {
+      lcd.clear();
+      lcd.print(F("Du hast"));
+      lcd.setCursor(0, 1);
+      lcd.print(F("außerdem"));
+      Button();
+      lcd.clear();
+      lcd.print(F("das Easteregg"));
+      lcd.setCursor(0, 1);
+      lcd.print(F("gefunden"));
+      Button();
+      lcd.clear();
+      lcd.print(F("Um das Spiel no"));
+      lcd.setCursor(0, 1);
+      lcd.print(F("chmal zu spielen"));
+      Button();
+      lcd.clear();
+      lcd.print(F("Druecke den"));
+      lcd.setCursor(0, 1);
+      lcd.print(F("Reset-Knopf"));
+      Button();
+    }
+    else {
+      lcd.clear();
+      lcd.print(F("Du hast das"));
+      lcd.setCursor(0, 1);
+      lcd.print(F("Easteregg aber"));
+      Button();
+      lcd.clear();
+      lcd.print(F("nicht"));
+      lcd.setCursor(0, 1);
+      lcd.print(F("gefunden"));
+      Button();
+      lcd.clear();
+      lcd.print(F("Also musst"));
+      lcd.setCursor(0, 1);
+      lcd.print(F("du nochmal"));
+      Button();
+      lcd.clear();
+      lcd.print(F("spielen und"));
+      lcd.setCursor(0, 1);
+      lcd.print(F("es finden"));
+      Button();
+      lcd.clear();
+      lcd.print(F("Viel"));
+      lcd.setCursor(0, 1);
+      lcd.print(F("Glueck!"));
+      Button();
+      box = 0;
+    }
   }
 }
 /*********************************************************************************************************
