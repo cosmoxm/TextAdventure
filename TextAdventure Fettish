@@ -1079,14 +1079,18 @@ void loop()
     if ( Health < 1 ) {
       box = 103;
     }
-    if ( box ==  103 ) {
-      lcd.clear();
-      lcd.print(F("Die Ratten"));
-      lcd.setCursor(0, 1);
-      lcd.print(F("erwischen dich"));
-      Button();
-      box = 104;
-    }
+  }
+  if ( box ==  103 ) {
+    Serial.println(box);
+    lcd.clear();
+    lcd.print(F("Die Ratten"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("erwischen dich"));
+    Serial.println(box);
+    Button();
+    Serial.println(box);
+    box = 104;
+    Serial.println(box);
   }
   if ( box ==  104 ) {
     lcd.clear();
@@ -1105,23 +1109,32 @@ void loop()
     box = 106;
   }
   if ( box == 106 ) {
+    Serial.println(box);
     EnemyHealth = 2;
     EnemyDefense = 1;
     EnemyGlaube = 0;
     EnemyAttack = 3;
     box = 107;
+    Serial.println(box);
   }
   if ( box == 107 ) {
+    Serial.println("107");
     if ( EnemyAttack - Defense > 0 ) {
+      Serial.println("1");
       Health -= EnemyAttack - Defense;
       if ( Health < 1 ) {
+        Serial.println(box);
         box = 103;
+        Serial.println(box);
       }
     }
     if ( Attack - EnemyDefense > 0 ) {
+      Serial.println("2");
       EnemyHealth -= Attack - EnemyDefense;
       if ( EnemyHealth < 1 ) {
+        Serial.println(box);
         box = 108;
+        Serial.println(box);
       }
     }
   }
@@ -1385,8 +1398,8 @@ void loop()
     lcd.setCursor(0, 1);
     lcd.print(F("kaufen"));
     box = AMakeChoice(130, 131, 140);
-    }
   }
+
   if ( box == 137 ) {
     lcd.clear();
     lcd.print(F("Du hast nicht"));
@@ -2229,6 +2242,7 @@ void loop()
     lcd.print(F("Druecke den"));
     lcd.setCursor(0, 1);
     lcd.print(F("Reset-Knopf"));
+    Button();
   }
 }
 /*********************************************************************************************************
