@@ -54,17 +54,13 @@ int EnemyHealth;        // gegnerisches Leben
 int EnemyDefense;       // gegnerische Ruestung
 int EnemyAttack;        // gegnericher Schaden/Angriff
 int EnemyGlaube;        // gegnerischer Segen Gottes
+
 void setup() {
-  pinMode(pinButton, INPUT);
-  // set up the LCD's number of columns and rows:
-  lcd.begin(16, 2);
-  // Print a message to the LCD.
-  lcd.print("Du bist ein Wand");
-  lcd.setCursor(0, 1);
-  lcd.print("erer im 11.Jhdt");
+  pinMode(pinButton, INPUT);   // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);            // Print a message to the LCD.
   Serial.begin(9600);
   while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
+    ;
   }
   Attack = 1;
   Defense = 0;
@@ -86,10 +82,7 @@ void setup() {
   Ware = 0;
   Goldmuenzen = 15;
   Glaube = 1;
-  while (!digitalRead(pinButton)) {
-    delay(100);
-  }
-  box = 0;
+}
 }
 
 bool isJoyUsed()      // Geguckt ob der Joystick benutzt wird
@@ -176,7 +169,6 @@ int makeChoice(int highBox, int lowBox)   // Wird entschieden welche box gewähl
 
 void loop()
 {
-  Serial.println(box, DEC);
   if ( box == 0 ) {
     Attack = 1;
     Defense = 0;
@@ -201,50 +193,58 @@ void loop()
   }
   if ( box == 1 ) {
     lcd.clear();
-    lcd.print(F("Du bist an einem"));
+    lcd.print("Du bist ein Wand");
     lcd.setCursor(0, 1);
-    lcd.print(F("Fluss im Wald"));
+    lcd.print("erer im 11.Jhdt");
     Button();
     box = 2;
   }
   if ( box == 2 ) {
     lcd.clear();
+    lcd.print(F("Du bist an einem"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("Fluss im Wald"));
+    Button();
+    box = 3;
+  }
+  if ( box == 3 ) {
+    lcd.clear();
     lcd.print(F("Willst du am Flu"));
     lcd.setCursor(0, 1);
     lcd.print(F("ss entlang gehen"));
-    box = makeChoice(3, 4);
+    box = makeChoice(4, 5);
   }
-  if ( box == 3 ) {
+  if ( box == 4 ) {
     lcd.clear();
     lcd.print(F("Du bist an"));
     lcd.setCursor(0, 1);
     lcd.print(F("einer Bruecke"));
     Button();
-    box = 8;
+    box = 9;
   }
-  if ( box == 4 ) {
+  if ( box == 5 ) {
     lcd.clear();
     lcd.print(F("Moechtest du in"));
     lcd.setCursor(0, 1);
     lcd.print(F("den Wald gehen"));
-    box = makeChoice(6, 5);
+    box = makeChoice(7, 6);
   }
   if ( box == 6 ) {
+    lcd.clear();
+    lcd.print(F("Moechtest du"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("dich ausruhen"));
+    box = makeChoice(8, 3);
+  }
+  if ( box == 7 ) {
     lcd.clear();
     lcd.print(F("Du gehst in"));
     lcd.setCursor(0, 1);
     lcd.print(F("den Wald"));
     Button();
-    box = 36;
+    box = 37;
   }
-  if ( box == 5 ) {
-    lcd.clear();
-    lcd.print(F("Moechtest du"));
-    lcd.setCursor(0, 1);
-    lcd.print(F("dich ausruhen"));
-    box = makeChoice(7, 2);
-  }
-  if ( box == 7 ) {
+  if ( box == 8 ) {
     lcd.clear();
     lcd.print(F("Du setzt dich"));
     lcd.setCursor(0, 1);
@@ -255,238 +255,238 @@ void loop()
     lcd.setCursor(0, 1);
     lcd.print(F("dich viel besser"));
     Button();
-    box = 2;
+    box = 3;
   }
-  if ( box == 8 ) {
+  if ( box == 9 ) {
     lcd.clear();
     lcd.print(F("Willst du"));
     lcd.setCursor(0, 1);
     lcd.print(F("ruebergehen?"));
-    box = makeChoice(10, 9);
+    box = makeChoice(11, 10);
   }
-  if ( box == 9 ) {
+  if ( box == 10 ) {
     lcd.clear();
     lcd.print(F("Willst du am Fl"));
     lcd.setCursor(0, 1);
     lcd.print(F("uss entlangehen "));
     box = makeChoice(11, 4);
   }
-  if ( box == 10 ) {
+  if ( box == 11 ) {
     lcd.clear();
     lcd.print(F("Du betrittst de"));
     lcd.setCursor(0, 1);
     lcd.print(F("n Dunkel Wald"));
     Button();
-    box = 42;
+    box = 43;
   }
-  if ( box == 11 ) {
+  if ( box == 12 ) {
     lcd.clear();
     lcd.print(F("Du kommst zu"));
     lcd.setCursor(0, 1);
     lcd.print(F("einem Wasserfall"));
     Button();
-    box = 12;
+    box = 13;
   }
-  if ( box == 12 ) {
+  if ( box == 13 ) {
     lcd.clear();
     lcd.print(F("Du triffst auf"));
     lcd.setCursor(0, 1);
     lcd.print(F("einen Wanderer"));
     Button();
-    box = 13;
+    box = 14;
   }
-  if ( box == 13 ) {
+  if ( box == 14 ) {
     lcd.clear();
     lcd.print(F("Du fragst"));
     lcd.setCursor(0, 1);
     lcd.print(F("ihn ob..."));
-    box = makeChoice(14, 15);
+    box = makeChoice(15, 16);
   }
-  if ( box == 14 ) {
+  if ( box == 15 ) {
     lcd.clear();
     lcd.print(F("er weis wo die n"));
     lcd.setCursor(0, 1);
     lcd.print(F("aechste Burg ist"));
-    box = AMakeChoice(15, 15, 16);
+    box = AMakeChoice(16, 16, 17);
   }
-  if ( box == 15 ) {
+  if ( box == 16 ) {
     lcd.clear();
     lcd.print(F("er weis was hint"));
     lcd.setCursor(0, 1);
     lcd.print(F("er dem Fluss ist"));
     box = AMakeChoice(14, 14, 18);
   }
-  if ( box == 16 ) {
+  if ( box == 17 ) {
     lcd.clear();
     lcd.print(F("Er zeigt dir"));
     lcd.setCursor(0, 1);
     lcd.print(F("den Weg"));
     Button();
-    box = 17;
+    box = 18;
   }
-  if ( box == 17 ) {
+  if ( box == 18 ) {
     lcd.clear();
     lcd.print(F("Du kommst zu"));
     lcd.setCursor(0, 1);
     lcd.print(F("einer Burg"));
     Button();
-    box = 19;
+    box = 20;
   }
-  if ( box == 18 ) {
+  if ( box == 19 ) {
     lcd.clear();
     lcd.print(F("Er zeigt dir"));
     lcd.setCursor(0, 1);
     lcd.print(F("den Weg"));
     Button();
-    box = 10;
+    box = 11;
   }
-  if ( box == 19 ) {
+  if ( box == 20 ) {
     lcd.clear();
     lcd.print(F("Die Wachen lasse"));
     lcd.setCursor(0, 1);
     lcd.print(F("n dich passieren"));
     Button();
-    box = 20;
+    box = 21;
   }
-  if ( box == 20 ) {
+  if ( box == 21 ) {
     lcd.clear();
     lcd.print(F("Du gehst"));
     lcd.setCursor(0, 1);
     lcd.print(F("hinein"));
     Button();
-    box = 21;
+    box = 22;
   }
-  if ( box == 21 ) {
+  if ( box == 22 ) {
     lcd.clear();
     lcd.print(F("Du kommst zur"));
     lcd.setCursor(0, 1);
     lcd.print(F("Burg von"));
     Button();
-    box = 22;
+    box = 23;
   }
-  if ( box == 22 ) {
+  if ( box == 23 ) {
     lcd.clear();
     lcd.print(F("Kaiser"));
     lcd.setCursor(0, 1);
     lcd.print(F("Friedrich"));
     Button();
-    box = 43;
+    box = 44;
   }
-  if ( box == 23 ) {
+  if ( box == 24 ) {
     lcd.clear();
     lcd.print(F("Wohin willst"));
     lcd.setCursor(0, 1);
     lcd.print(F("du gehen?"));
-    box = makeChoice(24, 27);
+    box = makeChoice(25, 28);
   }
-  if ( box == 24 ) {
+  if ( box == 25 ) {
     lcd.clear();
     lcd.print(F("Norden"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(30, 27, 25);
+    box = AMakeChoice(31, 28, 26);
   }
-  if ( box == 25 ) {
+  if ( box == 26 ) {
     lcd.clear();
     lcd.print(F("Du kommst zu"));
     lcd.setCursor(0, 1);
     lcd.print(F("einer Lichtung"));
     Button();
-    box = 26;
+    box = 27;
   }
-  if ( box == 26 ) {
+  if ( box == 27 ) {
     lcd.clear();
     lcd.print(F("und siehst "));
     lcd.setCursor(0, 1);
     lcd.print(F("einen Haendler"));
     if ( Haendler1 == 0 ) {
-      box = 33;
+      box = 34;
     }
     else if ( Haendler1 == 1 ) {
-      box = 214;
+      box = 215;
     }
     Button();
   }
-  if ( box == 27 ) {
+  if ( box == 28 ) {
     lcd.clear();
     lcd.print(F("Sued-Ost"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(27, 30, 28);
+    box = AMakeChoice(25, 31, 29);
   }
-  if ( box == 28 ) {
+  if ( box == 29 ) {
     lcd.clear();
     lcd.print(F("Du hast dich"));
     lcd.setCursor(0, 1);
     lcd.print(F("verlaufen und"));
     Button();
-    box = 29;
+    box = 30;
   }
-  if ( box == 29 ) {
+  if ( box == 30 ) {
     lcd.clear();
     lcd.print(F("kommst zu"));
     lcd.setCursor(0, 1);
     lcd.print(F("einer Burg"));
     Button();
-    box = 19;
+    box = 20;
   }
-  if ( box == 30 ) {
+  if ( box == 31 ) {
     lcd.clear();
     lcd.print(F("Westen"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(27, 24, 31);
+    box = AMakeChoice(28, 25, 32);
   }
-  if ( box == 31 ) {
+  if ( box == 32 ) {
     lcd.clear();
     lcd.print(F("Du kommst zu"));
     lcd.setCursor(0, 1);
     lcd.print(F("einem Fluss"));
     Button();
-    box = 32;
+    box = 33;
   }
-  if ( box == 32 ) {
+  if ( box == 33 ) {
     lcd.clear();
     lcd.print(F("mit einer"));
     lcd.setCursor(0, 1);
     lcd.print(F("Bruecke"));
     Button();
-    box = 8;
+    box = 9;
   }
-  if ( box == 33 ) {
+  if ( box == 34 ) {
     lcd.clear();
     lcd.print(F("Er wird "));
     lcd.setCursor(0, 1);
     lcd.print(F("ueberfallen"));
     Button();
-    box = 34;
+    box = 35;
   }
-  if ( box == 34 ) {
+  if ( box == 35 ) {
     if ( Haendler1 == 1 ) {
       lcd.clear();
       lcd.print(F("Moechtest du"));
       lcd.setCursor(0, 1);
       lcd.print(F("hingehen?"));
-      box = makeChoice(214, 216);
+      box = makeChoice(215, 217);
     }
     else if ( Haendler1 == 0 ) {
       lcd.clear();
       lcd.print(F("Moechtest du"));
       lcd.setCursor(0, 1);
       lcd.print(F("ihm helfen"));
-      box = makeChoice(35, 217);
+      box = makeChoice(36, 218);
     }
   }
-  if ( box == 35 ) {
+  if ( box == 36 ) {
     lcd.clear();
     lcd.print(F("Du hilfst ihm"));
     lcd.setCursor(0, 1);
     lcd.print(F("den Dieb"));
     Button();
-    box = 37;
+    box = 38;
     Haendler1 = 1;
   }
-  if ( box == 36 ) {
+  if ( box == 37 ) {
     if ( Haendler1 == 0 ) {
       lcd.clear();
       lcd.print(F("und hoerst Rufe"));
@@ -494,17 +494,17 @@ void loop()
       lcd.print(F("aus Norden"));
       Button();
     }
-    box = 23;
+    box = 24;
   }
-  if ( box == 37 ) {
+  if ( box == 38 ) {
     lcd.clear();
     lcd.print(F("zu ueberwael"));
     lcd.setCursor(0, 1);
     lcd.print(F("tigen und er"));
     Button();
-    box = 38;
+    box = 39;
   }
-  if ( box == 38 ) {
+  if ( box == 39 ) {
     lcd.clear();
     lcd.print(F("schenkt dir ein"));
     lcd.setCursor(0, 1);
@@ -512,298 +512,298 @@ void loop()
     Button();
     Goldmuenzen += random(45, 76);
     Health -= 1;
-    box = 39;
+    box = 40;
   }
-  if ( box == 39 ) {
+  if ( box == 40 ) {
     lcd.clear();
     lcd.print(F("Auserdem zeigt"));
     lcd.setCursor(0, 1);
     lcd.print(F("er dir den"));
     Button();
-    box = 40;
+    box = 41;
   }
-  if ( box == 40 ) {
+  if ( box == 41 ) {
     lcd.clear();
     lcd.print(F("Weg zur "));
     lcd.setCursor(0, 1);
     lcd.print(F("naechsten Burg"));
     Button();
-    box = 41;
+    box = 42;
   }
-  if ( box == 41 ) {
+  if ( box == 42 ) {
     lcd.clear();
     lcd.print(F("Du gehst"));
     lcd.setCursor(0, 1);
     lcd.print(F("zur Burg"));
     Button();
-    box = 19;
+    box = 20;
   }
-  if ( box == 42 ) {
+  if ( box == 43 ) {
     lcd.clear();
     lcd.print(F("Es ist dunkel"));
     lcd.setCursor(0, 1);
     lcd.print(F("und unheimlich"));
     Button();
-    box = 83;
+    box = 84;
   }
-  if ( box == 43 ) {
+  if ( box == 44 ) {
     lcd.clear();
     lcd.print(F("Du gehst auf"));
     lcd.setCursor(0, 1);
     lcd.print(F("den Marktplatz"));
     Button();
-    box = 44;
+    box = 45;
   }
-  if ( box == 44 ) {
+  if ( box == 45 ) {
     lcd.clear();
     lcd.print(F("Wohin moechtest"));
     lcd.setCursor(0, 1);
     lcd.print(F("du gehen?"));
-    box = makeChoice(61, 45);
+    box = makeChoice(62, 46);
   }
-  if ( box == 45 ) {
+  if ( box == 46 ) {
     lcd.clear();
     lcd.print(F("Zum Schmied"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(46, 62, 48);
+    box = AMakeChoice(47, 63, 49);
   }
-  if ( box == 46 ) {
+  if ( box == 47 ) {
     lcd.clear();
     lcd.print(F("Zum"));
     lcd.setCursor(0, 1);
     lcd.print(F("Troedelladen"));
-    box = AMakeChoice(47, 45, 49);
+    box = AMakeChoice(48, 46, 50);
   }
-  if ( box == 47 ) {
+  if ( box == 48 ) {
     lcd.clear();
     lcd.print(F("Zur Taverne"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(61, 46, 50);
-  }
-  if ( box == 48 ) {
-    lcd.clear();
-    lcd.print(F("Du gehst zum"));
-    lcd.setCursor(0, 1);
-    lcd.print(F("Schmied"));
-    Button();
-    box = 51;
+    box = AMakeChoice(62, 47, 51);
   }
   if ( box == 49 ) {
     lcd.clear();
     lcd.print(F("Du gehst zum"));
     lcd.setCursor(0, 1);
-    lcd.print(F("Troedelladen"));
+    lcd.print(F("Schmied"));
     Button();
-    box = 63;
+    box = 52;
   }
   if ( box == 50 ) {
+    lcd.clear();
+    lcd.print(F("Du gehst zum"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("Troedelladen"));
+    Button();
+    box = 64;
+  }
+  if ( box == 51 ) {
     lcd.clear();
     lcd.print(F("Du gehst zur"));
     lcd.setCursor(0, 1);
     lcd.print(F("Taverne"));
     Button();
-    box = 71;
+    box = 72;
   }
-  if ( box == 51 ) {
+  if ( box == 52 ) {
     lcd.clear();
     lcd.print(F("Er fragt dich"));
     lcd.setCursor(0, 1);
     lcd.print(F("ob du etwas"));
     Button();
-    box = 52;
+    box = 53;
   }
-  if ( box == 52 ) {
+  if ( box == 53 ) {
     lcd.clear();
     lcd.print(F("kaufen"));
     lcd.setCursor(0, 1);
     lcd.print(F("moechtest"));
-    box = makeChoice(53, 60);
+    box = makeChoice(54, 61);
   }
-  if ( box == 53 ) {
+  if ( box == 54 ) {
     lcd.clear();
     lcd.print(F("Er bietet"));
     lcd.setCursor(0, 1);
     lcd.print(F("dir..."));
-    box = makeChoice(55, 57);
+    box = makeChoice(56, 58);
   }
-  if ( box == 55 ) {
+  if ( box == 56 ) {
     if ( Menge1 < 1 || Goldmuenzen < 15 ) {
-      box = 56;
+      box = 57;
     }
     else if ( Menge1 > 0 ) {
       lcd.clear();
       lcd.print(F("Einen Dolch fuer"));
       lcd.setCursor(0, 1);
       lcd.print(F("15 Gold"));
-      box = AMakeChoice(56, 58, 59);
-      if ( box == 59 ) {
+      box = AMakeChoice(57, 59, 60);
+      if ( box == 60 ) {
         Goldmuenzen -= 15;
         Attack += 1;
         Menge1 -= 1;
       }
     }
   }
-  if ( box == 56 ) {
+  if ( box == 57 ) {
     if ( Menge2 < 1 || Goldmuenzen < 35 ) {
-      box = 57;
+      box = 58;
     }
     else if ( Menge2 > 0 ) {
       lcd.clear();
       lcd.print(F("Eine Ruestung"));
       lcd.setCursor(0, 1);
       lcd.print(F("fuer 35 Gold"));
-      box = AMakeChoice(57, 55, 59);
-      if ( box == 59 ) {
+      box = AMakeChoice(58, 56, 60);
+      if ( box == 60 ) {
         Goldmuenzen -= 35;
         Defense += 2;
         Menge2 -= 1;
       }
     }
   }
-  if ( box == 57 ) {
+  if ( box == 58 ) {
     if ( Menge3 < 1 || Goldmuenzen < 40 ) {
-      box = 58;
+      box = 59;
     }
     else if ( Menge3 > 0 ) {
       lcd.clear();
       lcd.print(F("Ein Schwert fuer"));
       lcd.setCursor(0, 1);
       lcd.print(F("40 Gold"));
-      box = AMakeChoice(58, 56, 59);
-      if ( box == 59 ) {
+      box = AMakeChoice(59, 57, 60);
+      if ( box == 60 ) {
         Goldmuenzen -= 40;
         Attack += 4;
         Menge3 -= 1;
       }
     }
   }
-  if ( box == 58 ) {
+  if ( box == 59 ) {
     lcd.clear();
     lcd.print(F("Doch nichts"));
     lcd.setCursor(0, 1);
     lcd.print(F("kaufen"));
-    box = AMakeChoice(55, 57, 60);
+    box = AMakeChoice(56, 58, 61);
   }
-  if ( box == 59 ) {
+  if ( box == 60 ) {
     lcd.clear();
     lcd.print(F("Moechtest du no"));
     lcd.setCursor(0, 1);
     lcd.print(F("ch etwas kaufen"));
-    box = makeChoice(55, 60);
+    box = makeChoice(56, 61);
   }
-  if ( box == 60 ) {
+  if ( box == 61 ) {
     lcd.clear();
     lcd.print(F("Du gehst zurueck"));
     lcd.setCursor(0, 1);
     lcd.print(F("zum Marktplatz"));
     Button();
-    box = 44;
+    box = 45;
   }
-  if ( box == 61 ) {
+  if ( box == 62 ) {
     lcd.clear();
     lcd.print(F("In den Wald"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(62, 47, 125);
+    box = AMakeChoice(63, 48, 126);
   }
-  if ( box == 62 ) {
+  if ( box == 63 ) {
     lcd.clear();
     lcd.print(F("In den"));
     lcd.setCursor(0, 1);
     lcd.print(F("Dunkel Wald"));
-    box = AMakeChoice(45, 61, 10);
+    box = AMakeChoice(46, 62, 11);
   }
-  if ( box == 63 ) {
+  if ( box == 64 ) {
     lcd.clear();
     lcd.print(F("Der Verkaeufer"));
     lcd.setCursor(0, 1);
     lcd.print(F("fragt dich"));
     Button();
-    box = 64;
+    box = 65;
   }
-  if ( box == 64 ) {
+  if ( box == 65 ) {
     lcd.clear();
     lcd.print(F("ob du etwas"));
     lcd.setCursor(0, 1);
     lcd.print(F("kaufen moechtest"));
-    box = makeChoice(65, 60);
+    box = makeChoice(66, 61);
   }
-  if ( box == 65 ) {
+  if ( box == 66 ) {
     lcd.clear();
     lcd.print(F("Er bietet"));
     lcd.setCursor(0, 1);
     lcd.print(F("dir..."));
-    box = makeChoice(68, 66);
+    box = makeChoice(69, 67);
   }
-  if ( box == 66 ) {
+  if ( box == 67 ) {
     if ( Menge4 < 1 || Goldmuenzen < 30 ) {
-      box = 67;
+      box = 68;
     }
     else if ( Menge1 > 0 ) {
       lcd.clear();
       lcd.print(F("Eine  Giftphiole"));
       lcd.setCursor(0, 1);
       lcd.print(F("fuer 30 Gold"));
-      box = AMakeChoice(67, 69, 70);
-      if ( box == 70 ) {
+      box = AMakeChoice(68, 70, 71);
+      if ( box == 71 ) {
         Goldmuenzen -= 30;
         Menge4 -= 1;
       }
     }
   }
-  if ( box == 67 ) {
+  if ( box == 68 ) {
     if ( Menge5 < 1 || Goldmuenzen < 5 ) {
-      box = 68;
+      box = 69;
     }
     else if ( Menge1 > 0 ) {
       lcd.clear();
       lcd.print(F("Einen Schnaps"));
       lcd.setCursor(0, 1);
       lcd.print(F("fuer 5 Gold"));
-      box = AMakeChoice(68, 66, 70);
-      if ( box == 70 ) {
+      box = AMakeChoice(69, 67, 71);
+      if ( box == 71 ) {
         Goldmuenzen -= 5;
         Ware += 1;
         Menge5 -= 1;
       }
     }
   }
-  if ( box == 68 ) {
+  if ( box == 69 ) {
     if ( Menge6 < 1 || Goldmuenzen < 15 ) {
-      box = 69;
+      box = 70;
     }
     else if ( Menge1 > 0 ) {
       lcd.clear();
       lcd.print(F("Seltsame Pilze"));
       lcd.setCursor(0, 1);
       lcd.print(F("fuer 15 Gold"));
-      box = AMakeChoice(69, 67, 70);
-      if ( box == 70 ) {
+      box = AMakeChoice(70, 68, 71);
+      if ( box == 71 ) {
         Goldmuenzen -= 15;
         Ware += 2;
         Menge6 -= 1;
       }
     }
   }
-  if ( box == 69 ) {
+  if ( box == 70 ) {
     lcd.clear();
     lcd.print(F("Doch nichts"));
     lcd.setCursor(0, 1);
     lcd.print(F("kaufen"));
-    box = AMakeChoice(66, 68, 60);
+    box = AMakeChoice(67, 69, 61);
   }
-  if ( box == 70 ) {
+  if ( box == 71 ) {
     lcd.clear();
     lcd.print(F("Moechtest du no"));
     lcd.setCursor(0, 1);
     lcd.print(F("ch etwas kaufen"));
-    box = makeChoice(66, 60);
+    box = makeChoice(67, 61);
   }
-  if ( box == 71 ) {
+  if ( box == 72 ) {
     if ( Ware < 1 ) {
-      box = 76;
+      box = 77;
     }
     else if ( Ware > 0 ) {
       lcd.clear();
@@ -811,69 +811,69 @@ void loop()
       lcd.setCursor(0, 1);
       lcd.print(F("Person fragt"));
       Button();
-      box = 72;
+      box = 73;
     }
   }
-  if ( box == 72 ) {
+  if ( box == 73 ) {
     lcd.clear();
     lcd.print(F("dich ob du"));
     lcd.setCursor(0, 1);
     lcd.print(F("ihm Pilze oder"));
     Button();
-    box = 73;
+    box = 74;
   }
-  if ( box == 73 ) {
+  if ( box == 74 ) {
     lcd.clear();
     lcd.print(F("Schnaps verkau"));
     lcd.setCursor(0, 1);
     lcd.print(F("fen kannst"));
     Button();
-    box = 74;
+    box = 75;
   }
-  if ( box == 74 ) {
+  if ( box == 75 ) {
     lcd.clear();
     lcd.print(F("Willst du ihm"));
     lcd.setCursor(0, 1);
     lcd.print(F("das verkaufen?"));
-    box = makeChoice(75, 76);
-    if ( box == 75 ) {
+    box = makeChoice(76, 77);
+    if ( box == 76 ) {
       Goldmuenzen += 10 * Ware;
       Ware = 0;
     }
   }
-  if ( box == 75 ) {
+  if ( box == 76 ) {
     lcd.clear();
     lcd.print(F("Du verkaufst"));
     lcd.setCursor(0, 1);
     lcd.print(F("ihm es ihm"));
     Button();
-    box = 76;
+    box = 77;
   }
-  if ( box == 76 ) {
+  if ( box == 77 ) {
     lcd.clear();
     lcd.print(F("Du gehst in"));
     lcd.setCursor(0, 1);
     lcd.print(F("die Taverne"));
     Button();
-    box = 77;
+    box = 78;
   }
-  if ( box == 77 ) {
+  if ( box == 78 ) {
     lcd.clear();
     lcd.print(F("Er fragt dich"));
     lcd.setCursor(0, 1);
     lcd.print(F("ob du ein Bier"));
     Button();
-    box = 78;
+    box = 79;
   }
-  if ( box == 78 ) {
+  if ( box == 79 ) {
     lcd.clear();
     lcd.print(F("haben und fuer"));
     lcd.setCursor(0, 1);
     lcd.print(F("20 Goldmuenzen"));
     Button();
-    box = 79;
+    box = 80;
   }
-  if ( box == 79 ) {
+  if ( box == 80 ) {
     lcd.clear();
     lcd.print(F("uebernachten"));
     lcd.setCursor(0, 1);
@@ -881,147 +881,147 @@ void loop()
     while ( sensorValue1 < 261 || sensorValue1 > 749 ) {
       sensorValue1 = analogRead(A0);
     }
-    while ( box == 79  ) {
+    while ( box == 80  ) {
       delay(100);
       sensorValue1 = analogRead(A0);
       if ( sensorValue1 < 261 ) {
         if ( Goldmuenzen < 20 ) {
-          box = 80;
+          box = 81;
         }
         else if ( Goldmuenzen > 19 ) {
-          box = 82;
+          box = 83;
           if ( Health < 6 ) {
             Health += 1;
           }
         }
       }
       if ( sensorValue1 > 749 ) {
-        box = 60;
+        box = 61;
       }
     }
   }
-  if ( box == 80 ) {
+  if ( box == 81 ) {
     lcd.clear();
     lcd.print(F("Du hast"));
     lcd.setCursor(0, 1);
     lcd.print(F("nicht genug"));
     Button();
-    box = 81;
+    box = 82;
   }
-  if ( box == 81 ) {
+  if ( box == 82 ) {
     lcd.clear();
     lcd.print(F("Goldmuenzen"));
     lcd.setCursor(0, 1);
     lcd.print(F("und"));
     Button();
-    box = 60;
+    box = 61;
   }
-  if ( box == 82 ) {
+  if ( box == 83 ) {
     lcd.clear();
     lcd.print(F("Du schlaefst"));
     lcd.setCursor(0, 1);
     lcd.print(F("dort und"));
     Button();
-    box = 60;
+    box = 61;
   }
-  if ( box == 83 ) {
+  if ( box == 84 ) {
     lcd.clear();
     lcd.print(F("Du kommst zu"));
     lcd.setCursor(0, 1);
     lcd.print(F("einer Biegung"));
     Button();
-    box = 84;
+    box = 85;
   }
-  if ( box == 84 ) {
+  if ( box == 85 ) {
     lcd.clear();
     lcd.print(F("Wohin willst"));
     lcd.setCursor(0, 1);
     lcd.print(F("du gehen?"));
-    box = makeChoice(88, 85);
+    box = makeChoice(89, 86);
   }
-  if ( box == 85 ) {
+  if ( box == 86 ) {
     lcd.clear();
     lcd.print(F("Nach rechts"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(86, 88, 90);
+    box = AMakeChoice(87, 89, 91);
   }
-  if ( box == 86 ) {
+  if ( box == 87 ) {
     lcd.clear();
     lcd.print(F("Geradeaus"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(87, 85, 119);
+    box = AMakeChoice(88, 86, 120);
   }
-  if ( box == 87 ) {
+  if ( box == 88 ) {
     lcd.clear();
     lcd.print(F("Nach links"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(88, 86, 119);
+    box = AMakeChoice(89, 87, 120);
   }
-  if ( box == 88 ) {
+  if ( box == 89 ) {
     lcd.clear();
     lcd.print(F("Zurueck zur"));
     lcd.setCursor(0, 1);
     lcd.print(F("Bruecke"));
-    box = AMakeChoice(85, 87, 89);
+    box = AMakeChoice(86, 88, 90);
   }
-  if ( box == 89 ) {
+  if ( box == 90 ) {
     lcd.clear();
     lcd.print(F("Du gehst zurueck"));
     lcd.setCursor(0, 1);
     lcd.print(F("zur Bruecke"));
     Button();
-    box = 9;
+    box = 10;
   }
-  if ( box == 90 ) {
+  if ( box == 91 ) {
     lcd.clear();
     lcd.print(F("Du gehst nach"));
     lcd.setCursor(0, 1);
     lcd.print(F("rechts und"));
     Button();
-    box = 91;
+    box = 92;
   }
-  if ( box == 91 ) {
+  if ( box == 92 ) {
     lcd.clear();
     lcd.print(F("hoerst ein"));
     lcd.setCursor(0, 1);
     lcd.print(F("Fiepen von links"));
     Button();
-    box = 92;
+    box = 93;
   }
-  if ( box == 92 ) {
+  if ( box == 93 ) {
     lcd.clear();
     lcd.print(F("Wohin willst"));
     lcd.setCursor(0, 1);
     lcd.print(F("du gehen?"));
-    box = makeChoice(93, 94);
+    box = makeChoice(94, 95);
   }
-  if ( box == 93 ) {
+  if ( box == 94 ) {
     lcd.clear();
     lcd.print(F("Nach rechts"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(94, 95, 83);
+    box = AMakeChoice(95, 96, 84);
   }
-  if ( box == 94 ) {
+  if ( box == 95 ) {
     lcd.clear();
     lcd.print(F("Nach links"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(95, 93, 96);
+    box = AMakeChoice(96, 94, 97);
   }
-  if ( box == 95 ) {
+  if ( box == 96 ) {
     lcd.clear();
     lcd.print(F("Zurueck"));
     lcd.setCursor(0, 1);
     lcd.print(F("gehen"));
-    box = AMakeChoice(93, 94, 83);
+    box = AMakeChoice(94, 95, 84);
   }
-  if ( box == 96 ) {
+  if ( box == 97 ) {
     if ( Gegner1 == 0 ) {
-      box = 116;
+      box = 117;
     }
     if ( Gegner1 == 1 ) {
       lcd.clear();
@@ -1029,37 +1029,37 @@ void loop()
       lcd.setCursor(0, 1);
       lcd.print(F("Rattenmeute"));
       Button();
-      box = 97;
+      box = 98;
     }
   }
-  if ( box == 97 ) {
+  if ( box == 98 ) {
     lcd.clear();
     lcd.print(F("Sie greift"));
     lcd.setCursor(0, 1);
     lcd.print(F("dich an"));
     Button();
-    box = 98;
+    box = 99;
   }
-  if ( box == 98 ) {
+  if ( box == 99 ) {
     lcd.clear();
     lcd.print(F("Was tust du?"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = makeChoice(101, 99);
+    box = makeChoice(102, 100);
   }
-  if ( box == 99 ) {
+  if ( box == 100 ) {
     lcd.clear();
     lcd.print(F("Angreifen"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(100, 101, 105);
+    box = AMakeChoice(101, 102, 106);
   }
-  if ( box == 100 ) {
+  if ( box == 101 ) {
     lcd.clear();
     lcd.print(F("Fliehen"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(101, 99, 102);
+    box = AMakeChoice(102, 100, 103);
     Health -= 1;
   }
   if ( box == 101 ) {
@@ -1067,34 +1067,30 @@ void loop()
     lcd.print(F("Beten"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(99, 100, 113);
+    box = AMakeChoice(100, 101, 114);
   }
-  if ( box == 102 ) {
+  if ( box == 103 ) {
     if ( Health > 0 ) {
       lcd.clear();
       lcd.print(F("Du fliehst und"));
       lcd.setCursor(0, 1);
       lcd.print(F("kannst entkommen"));
       Button();
-      box = 83;
+      box = 84;
     }
     if ( Health < 1 ) {
-      box = 103;
+      box = 104;
     }
   }
-  if ( box ==  103 ) {
-    Serial.println(box);
+  if ( box ==  104 ) {
     lcd.clear();
     lcd.print(F("Die Ratten"));
     lcd.setCursor(0, 1);
     lcd.print(F("erwischen dich"));
-    Serial.println(box);
     Button();
-    Serial.println(box);
-    box = 104;
-    Serial.println(box);
+    box = 105;
   }
-  if ( box ==  104 ) {
+  if ( box ==  105 ) {
     lcd.clear();
     lcd.print(F("Du bist"));
     lcd.setCursor(0, 1);
@@ -1102,77 +1098,69 @@ void loop()
     Button();
     box = 0;
   }
-  if ( box == 105 ) {
+  if ( box == 106 ) {
     lcd.clear();
     lcd.print(F("Du greifst"));
     lcd.setCursor(0, 1);
     lcd.print(F("die Ratten an"));
     Button();
-    box = 106;
+    box = 107;
   }
-  if ( box == 106 ) {
+  if ( box == 107 ) {
     Serial.println(box);
     EnemyHealth = 2;
     EnemyDefense = 1;
     EnemyGlaube = 0;
     EnemyAttack = 3;
-    box = 107;
-    Serial.println(box);
+    box = 108;
   }
-  if ( box == 107 ) {
-    Serial.println("107");
+  if ( box == 108 ) {
     if ( EnemyAttack - Defense > 0 ) {
-      Serial.println("1");
       Health -= EnemyAttack - Defense;
       if ( Health < 1 ) {
-        Serial.println(box);
-        box = 103;
-        Serial.println(box);
+        box = 104;
       }
     }
     if ( Attack - EnemyDefense > 0 ) {
-      Serial.println("2");
       EnemyHealth -= Attack - EnemyDefense;
       if ( EnemyHealth < 1 ) {
-        Serial.println(box);
-        box = 108;
-        Serial.println(box);
+        box = 109;
       }
     }
   }
-  if ( box == 108 ) {
+  if ( box == 109 ) {
     lcd.clear();
     lcd.print(F("Du besiegst"));
     lcd.setCursor(0, 1);
     lcd.print(F("die Ratten und"));
     Button();
-    box = 109;
+    box = 110;
   }
-  if ( box == 109 ) {
+  if ( box == 110 ) {
     lcd.clear();
     lcd.print(F("findest eine"));
     lcd.setCursor(0, 1);
     lcd.print(F("Schatztruhe"));
     Button();
-    box = 110;
+    box = 111;
   }
-  if ( box == 110 ) {
+  if ( box == 111 ) {
     lcd.clear();
     lcd.print(F("in der Schatz"));
     lcd.setCursor(0, 1);
     lcd.print(F("truhe ist eine"));
     Button();
-    box = 111;
+    box = 112;
   }
-  if ( box == 111 ) {
+  if ( box == 112 ) {
     lcd.clear();
     lcd.print(F("Ritter"));
     lcd.setCursor(0, 1);
     lcd.print(F("ruestung"));
     Button();
-    box = 112;
+    box = 113;
   }
-  if ( box == 112 ) {
+  if ( box == 113 ) {
     lcd.clear();
     lcd.print(F("Du legst die"));
     lcd.setCursor(0, 1);
@@ -1184,85 +1172,85 @@ void loop()
       Defense += 2;
     }
     Button();
-    box = 115;
+    box = 116;
     Gegner1 = 0;
   }
-  if ( box == 113 ) {
+  if ( box == 114 ) {
     EnemyHealth = 2;
     EnemyDefense = 1;
     EnemyGlaube = 0;
     EnemyAttack = 3;
-    box = 114;
+    box = 115;
   }
-  if ( box == 114 ) {
+  if ( box == 115 ) {
     if ( EnemyAttack - Defense > 0 ) {
       Health -= EnemyAttack - Defense;
       if ( Health < 1 ) {
-        box = 103;
+        box = 104;
       }
     }
     if ( Glaube - EnemyGlaube > 0 ) {
       EnemyHealth -= Glaube - EnemyGlaube;
       if ( EnemyHealth < 1 ) {
-        box = 108;
+        box = 109;
       }
     }
   }
-  if ( box == 115 ) {
+  if ( box == 116 ) {
     lcd.clear();
     lcd.print(F("Du gehst zurueck"));
     lcd.setCursor(0, 1);
     lcd.print(F("zur Biegung"));
     Button();
-    box = 92;
+    box = 93;
   }
-  if ( box == 116 ) {
+  if ( box == 117 ) {
     lcd.clear();
     lcd.print(F("Du kommst zu"));
     lcd.setCursor(0, 1);
     lcd.print(F("einer Biegung"));
     Button();
-    box = 117;
+    box = 118;
   }
-  if ( box == 117 ) {
+  if ( box == 118 ) {
     lcd.clear();
     lcd.print(F("Du erkennst sie"));
     lcd.setCursor(0, 1);
     lcd.print(F("wieder"));
     Button();
-    box = 118;
+    box = 119;
   }
-  if ( box == 118 ) {
+  if ( box == 119 ) {
     lcd.clear();
     lcd.print(F("Du bist im"));
     lcd.setCursor(0, 1);
     lcd.print(F("Kreis gelaufen"));
     Button();
-    box = 92;
+    box = 93;
   }
-  if ( box == 119 ) {
+  if ( box == 120 ) {
     lcd.clear();
     lcd.print(F("Du kommst zu"));
     lcd.setCursor(0, 1);
     lcd.print(F("einem Moor"));
     Button();
-    box = 120;
-  }
-  if ( box == 120 ) {
-    lcd.clear();
-    lcd.print(F("Willst du"));
-    lcd.setCursor(0, 1);
-    lcd.print(F("weitergehen?"));
-    box = makeChoice(122, 121);
+    box = 121;
   }
   if ( box == 121 ) {
     lcd.clear();
     lcd.print(F("Willst du"));
     lcd.setCursor(0, 1);
-    lcd.print(F("zurueckgehen?"));
-    box = makeChoice(84, 120);
+    lcd.print(F("weitergehen?"));
+    box = makeChoice(123, 122);
   }
   if ( box == 122 ) {
+    lcd.clear();
+    lcd.print(F("Willst du"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("zurueckgehen?"));
+    box = makeChoice(85, 121);
+  }
+  if ( box == 123 ) {
     lcd.clear();
     lcd.print(F("Du gehst weiter"));
     lcd.setCursor(0, 1);
@@ -1270,101 +1258,101 @@ void loop()
     Button();
     Health -= 1;
     if ( Health > 0 ) {
-      box = 123;
-    }
-    if ( Health < 1 ) {
       box = 124;
     }
+    if ( Health < 1 ) {
+      box = 125;
+    }
   }
-  if ( box == 123 ) {
+  if ( box == 124 ) {
     lcd.clear();
     lcd.print(F("der Boden"));
     lcd.setCursor(0, 1);
     lcd.print(F("wird fester"));
     Button();
-    box = 125;
+    box = 126;
   }
-  if ( box == 124 ) {
+  if ( box == 125 ) {
     lcd.clear();
     lcd.print(F("Du versinkst"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
     Button();
-    box = 104;
+    box = 105;
   }
-  if ( box == 125 ) {
+  if ( box == 126 ) {
     lcd.clear();
     lcd.print(F("Du kommst zu"));
     lcd.setCursor(0, 1);
     lcd.print(F("einer Lichtung"));
     Button();
-    box = 126;
+    box = 127;
   }
-  if ( box == 126 ) {
+  if ( box == 127 ) {
     lcd.clear();
     lcd.print(F("und siehst"));
     lcd.setCursor(0, 1);
     lcd.print(F("einen Haendler"));
     Button();
-    box = 127;
+    box = 128;
   }
-  if ( box == 127 ) {
+  if ( box == 128 ) {
     lcd.clear();
     lcd.print(F("Willst du"));
     lcd.setCursor(0, 1);
     lcd.print(F("hingehen?"));
-    box = makeChoice(128, 141);
+    box = makeChoice(129, 142);
   }
-  if ( box == 128 ) {
+  if ( box == 129 ) {
     lcd.clear();
     lcd.print(F("Du gehst zu"));
     lcd.setCursor(0, 1);
     lcd.print(F("ihm hin"));
     Button();
-    box = 129;
+    box = 130;
   }
-  if ( box == 129 ) {
+  if ( box == 130 ) {
     lcd.clear();
     lcd.print(F("Er bietet"));
     lcd.setCursor(0, 1);
     lcd.print(F("dir..."));
-    box = makeChoice(135, 130);
+    box = makeChoice(136, 131);
   }
-  if ( box == 130 ) {
+  if ( box == 131 ) {
     if ( Menge7 < 1 ) {
-      box = 131;
+      box = 132;
     }
     if ( Menge7 > 0 ) {
       lcd.clear();
       lcd.print(F("Ein Amulett"));
       lcd.setCursor(0, 1);
       lcd.print(F("fuer 50 Gold"));
-      box = AMakeChoice(131, 135, 132);
-      if ( box == 132 ) {
+      box = AMakeChoice(132, 136, 133);
+      if ( box == 133 ) {
         if ( Goldmuenzen < 50 ) {
-          box = 137;
+          box = 138;
         }
       }
     }
   }
-  if ( box == 131 ) {
+  if ( box == 132 ) {
     if ( Menge8 < 1 ) {
-      box = 138;
+      box = 139;
     }
     if ( Menge8 > 0 ) {
       lcd.clear();
       lcd.print(F("Einen Trank"));
       lcd.setCursor(0, 1);
       lcd.print(F("fuer 25 Gold"));
-      box = AMakeChoice(135, 130, 133);
-      if ( box == 133 ) {
+      box = AMakeChoice(136, 131, 134);
+      if ( box == 134 ) {
         if ( Goldmuenzen < 25 ) {
-          box = 137;
+          box = 138;
         }
       }
     }
   }
-  if ( box == 132 ) {
+  if ( box == 133 ) {
     Menge7 -= 1;
     Goldmuenzen -= 50;
     Glaube += 2;
@@ -1373,9 +1361,9 @@ void loop()
     lcd.setCursor(0, 1);
     lcd.print(F("Amulett"));
     Button();
-    box = 139;
+    box = 140;
   }
-  if ( box == 133 ) {
+  if ( box == 134 ) {
     Menge8 -= 1;
     Goldmuenzen -= 25;
     Health = 6;
@@ -1384,364 +1372,364 @@ void loop()
     lcd.setCursor(0, 1);
     lcd.print(F("und fuehlst dich"));
     Button();
-    box = 134;
+    box = 135;
   }
-  if ( box == 134 ) {
+  if ( box == 136 ) {
     lcd.clear();
     lcd.print(F("sehr erfischt"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
     Button();
-    box = 139;
+    box = 140;
   }
-  if ( box == 135 ) {
+  if ( box == 136 ) {
     lcd.clear();
     lcd.print(F("Doch nichts"));
     lcd.setCursor(0, 1);
     lcd.print(F("kaufen"));
-    box = AMakeChoice(130, 131, 140);
+    box = AMakeChoice(131, 132, 141);
   }
 
-  if ( box == 137 ) {
+  if ( box == 138 ) {
     lcd.clear();
     lcd.print(F("Du hast nicht"));
     lcd.setCursor(0, 1);
     lcd.print(F("genug Gold"));
     Button();
-    box = 139;
+    box = 140;
   }
-  if ( box == 138 ) {
+  if ( box == 139 ) {
     lcd.clear();
     lcd.print(F("Doch nichts"));
     lcd.setCursor(0, 1);
     lcd.print(F("kaufen"));
-    box = AMakeChoice(130, 131, 140);
+    box = AMakeChoice(131, 132, 141);
   }
-  if ( box == 139 ) {
+  if ( box == 140 ) {
     lcd.clear();
     lcd.print(F("Willst du noch"));
     lcd.setCursor(0, 1);
     lcd.print(F("etwas kaufen?"));
-    box = makeChoice(130, 140);
+    box = makeChoice(131, 141);
   }
-  if ( box == 140 ) {
+  if ( box == 141 ) {
     lcd.clear();
     lcd.print(F("Willst du"));
     lcd.setCursor(0, 1);
     lcd.print(F("weitergehen?"));
-    box = makeChoice(141, 139);
+    box = makeChoice(142, 140);
   }
-  if ( box == 138 ) {
+  if ( box == 139 ) {
     lcd.clear();
     lcd.print(F("Doch nichts"));
     lcd.setCursor(0, 1);
     lcd.print(F("kaufen"));
-    box = AMakeChoice(130, 131, 140);
-  }
-  if ( box == 141 ) {
-    lcd.clear();
-    lcd.print(F("Willst du nach"));
-    lcd.setCursor(0, 1);
-    lcd.print(F("Norden gehen?"));
-    box = makeChoice(143, 142);
+    box = AMakeChoice(131, 132, 141);
   }
   if ( box == 142 ) {
     lcd.clear();
     lcd.print(F("Willst du nach"));
     lcd.setCursor(0, 1);
-    lcd.print(F("Sueden gehen?"));
-    box = makeChoice(199, 144);
+    lcd.print(F("Norden gehen?"));
+    box = makeChoice(144, 143);
   }
   if ( box == 143 ) {
+    lcd.clear();
+    lcd.print(F("Willst du nach"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("Sueden gehen?"));
+    box = makeChoice(200, 145);
+  }
+  if ( box == 144 ) {
     lcd.clear();
     lcd.print(F("Du gehst"));
     lcd.setCursor(0, 1);
     lcd.print(F("nach Norden"));
     Button();
-    box = 17;
+    box = 18;
   }
-  if ( box == 144 ) {
+  if ( box == 145 ) {
     lcd.clear();
     lcd.print(F("Willst du nach"));
     lcd.setCursor(0, 1);
     lcd.print(F("Osten gehen?"));
-    box = makeChoice(145, 127);
+    box = makeChoice(146, 128);
   }
-  if ( box == 145 ) {
+  if ( box == 146 ) {
     lcd.clear();
     lcd.print(F("Du gehst"));
     lcd.setCursor(0, 1);
     lcd.print(F("nach Osten"));
     Button();
-    box = 146;
+    box = 147;
   }
-  if ( box == 146 ) {
+  if ( box == 147 ) {
     lcd.clear();
     lcd.print(F("Es wird"));
     lcd.setCursor(0, 1);
     lcd.print(F("Dunkel"));
     Button();
-    box = 147;
+    box = 148;
   }
-  if ( box == 147 ) {
+  if ( box == 148 ) {
     lcd.clear();
     lcd.print(F("Du hoerst"));
     lcd.setCursor(0, 1);
     lcd.print(F("Stimmen"));
     Button();
-    box = 148;
+    box = 149;
   }
-  if ( box == 148 ) {
+  if ( box == 149 ) {
     lcd.clear();
     lcd.print(F("Willst du"));
     lcd.setCursor(0, 1);
     lcd.print(F("hingehen?"));
-    box = makeChoice(149, 150);
+    box = makeChoice(150, 151);
   }
-  if ( box == 149 ) {
+  if ( box == 150 ) {
     lcd.clear();
     lcd.print(F("Du gehst zu"));
     lcd.setCursor(0, 1);
     lcd.print(F("den Stimmen"));
     Button();
-    box = 153;
+    box = 154;
   }
-  if ( box == 150 ) {
+  if ( box == 151 ) {
     lcd.clear();
     lcd.print(F("Willst du"));
     lcd.setCursor(0, 1);
     lcd.print(F("zurueckgehen?"));
-    box = makeChoice(152, 151);
+    box = makeChoice(153, 152);
   }
-  if ( box == 151 ) {
+  if ( box == 152 ) {
     lcd.clear();
     lcd.print(F("Willst du zu den"));
     lcd.setCursor(0, 1);
     lcd.print(F("Stimmen gehen?"));
-    box = makeChoice(149, 150);
+    box = makeChoice(150, 151);
   }
-  if ( box == 152 ) {
+  if ( box == 153 ) {
     lcd.clear();
     lcd.print(F("Du gehst"));
     lcd.setCursor(0, 1);
     lcd.print(F("zurueck"));
     Button();
-    box = 141;
+    box = 142;
   }
-  if ( box == 153 ) {
+  if ( box == 154 ) {
     lcd.clear();
     lcd.print(F("Du siehst"));
     lcd.setCursor(0, 1);
     lcd.print(F("2 Raeuber"));
     Button();
-    box = 154;
+    box = 155;
   }
-  if ( box == 154 ) {
+  if ( box == 155 ) {
     lcd.clear();
     lcd.print(F("Sie sitzen an"));
     lcd.setCursor(0, 1);
     lcd.print(F("einem Lagerfeuer"));
     Button();
-    box = 155;
+    box = 156;
   }
-  if ( box == 155 ) {
+  if ( box == 156 ) {
     lcd.clear();
     lcd.print(F("Willst du..."));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = makeChoice(156, 158);
+    box = makeChoice(157, 159);
   }
-  if ( box == 156 ) {
+  if ( box == 157 ) {
     lcd.clear();
     lcd.print(F("hingehen?"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(157, 158, 159);
+    box = AMakeChoice(158, 159, 160);
   }
-  if ( box == 157 ) {
+  if ( box == 158 ) {
     lcd.clear();
     lcd.print(F("dich"));
     lcd.setCursor(0, 1);
     lcd.print(F("anschleichen?"));
-    box = AMakeChoice(158, 156, 180);
+    box = AMakeChoice(159, 157, 181);
   }
-  if ( box == 158 ) {
+  if ( box == 159 ) {
     lcd.clear();
     lcd.print(F("zurueckgehen?"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(156, 157, 152);
+    box = AMakeChoice(157, 158, 153);
   }
-  if ( box == 159 ) {
+  if ( box == 160 ) {
     lcd.clear();
     lcd.print(F("Du gehst zu"));
     lcd.setCursor(0, 1);
     lcd.print(F("ihnen hin und"));
     Button();
-    box = 160;
+    box = 161;
   }
-  if ( box == 160 ) {
+  if ( box == 161 ) {
     lcd.clear();
     lcd.print(F("sie greifen"));
     lcd.setCursor(0, 1);
     lcd.print(F("dich an"));
     Button();
-    box = 161;
+    box = 162;
   }
-  if ( box == 161 ) {
+  if ( box == 162 ) {
     lcd.clear();
     lcd.print(F("Was tust"));
     lcd.setCursor(0, 1);
     lcd.print(F("du?"));
-    box = makeChoice(164, 166);
+    box = makeChoice(165, 167);
   }
-  if ( box == 162 ) {
+  if ( box == 163 ) {
     lcd.clear();
     lcd.print(F("Sie toeten"));
     lcd.setCursor(0, 1);
     lcd.print(F("dich"));
     Button();
-    box = 104;
+    box = 105;
   }
-  if ( box == 163 ) {
+  if ( box == 164 ) {
     lcd.clear();
     lcd.print(F("Du besiegst"));
     lcd.setCursor(0, 1);
     lcd.print(F("sie"));
     Button();
-    box = 173;
+    box = 174;
   }
-  if ( box == 164 ) {
+  if ( box == 165 ) {
     lcd.clear();
     lcd.print(F("Angreifen"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(165, 166, 167);
+    box = AMakeChoice(166, 167, 168);
   }
-  if ( box == 165 ) {
+  if ( box == 166 ) {
     lcd.clear();
     lcd.print(F("Beten"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(166, 164, 169);
+    box = AMakeChoice(167, 165, 170);
   }
-  if ( box == 166 ) {
+  if ( box == 167 ) {
     lcd.clear();
     lcd.print(F("Fliehen"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(164, 165, 171);
+    box = AMakeChoice(165, 166, 172);
   }
-  if ( box == 167 ) {
+  if ( box == 168 ) {
     EnemyHealth = 6;
     EnemyDefense = 2;
     EnemyGlaube = 1;
     EnemyAttack = 3;
-    box = 168;
+    box = 169;
   }
-  if ( box == 168 ) {
+  if ( box == 169 ) {
     if ( EnemyAttack - Defense > 0 ) {
       Health -= EnemyAttack - Defense;
       if ( Health < 1 ) {
-        box = 162;
+        box = 163;
       }
     }
     if ( Attack - EnemyDefense > 0 ) {
       EnemyHealth -= Attack - EnemyDefense;
       if ( EnemyHealth < 1 ) {
-        box = 163;
+        box = 164;
       }
     }
   }
-  if ( box == 169 ) {
+  if ( box == 170 ) {
     EnemyHealth = 6;
     EnemyDefense = 2;
     EnemyGlaube = 1;
     EnemyAttack = 3;
-    box = 170;
+    box = 171;
   }
-  if ( box == 170 ) {
+  if ( box == 171 ) {
     if ( EnemyAttack - Defense > 0 ) {
       Health -= EnemyAttack - Defense;
       if ( Health < 1 ) {
-        box = 162;
+        box = 163;
       }
     }
     if ( Glaube - EnemyGlaube > 0 ) {
       EnemyHealth -= Glaube - EnemyGlaube;
       if ( EnemyHealth < 1 ) {
-        box = 163;
+        box = 164;
       }
     }
   }
-  if ( box == 171 ) {
+  if ( box == 172 ) {
     Health -= 2;
     if ( Health < 1 ) {
-      box = 162;
+      box = 163;
     }
     lcd.clear();
     lcd.print(F("Du versuchst"));
     lcd.setCursor(0, 1);
     lcd.print(F("zu fliehen"));
     Button();
-    box = 172;
+    box = 173;
   }
-  if ( box == 172 ) {
+  if ( box == 173 ) {
     lcd.clear();
     lcd.print(F("Sie holen dich"));
     lcd.setCursor(0, 1);
     lcd.print(F("ein"));
     Button();
-    box = 161;
+    box = 162;
   }
-  if ( box == 173 ) {
+  if ( box == 174 ) {
     lcd.clear();
     lcd.print(F("Was tust"));
     lcd.setCursor(0, 1);
     lcd.print(F("du?"));
-    box = makeChoice(174, 175);
+    box = makeChoice(175, 176);
   }
-  if ( box == 174 ) {
+  if ( box == 175 ) {
     lcd.clear();
     lcd.print(F("Ihre Sachen"));
     lcd.setCursor(0, 1);
     lcd.print(F("nehmen"));
-    box = AMakeChoice(175, 175, 176);
+    box = AMakeChoice(176, 176, 177);
   }
-  if ( box == 175 ) {
+  if ( box == 176 ) {
     lcd.clear();
     lcd.print(F("Ans Lagerfeuer"));
     lcd.setCursor(0, 1);
     lcd.print(F("setzen"));
-    box = AMakeChoice(174, 174, 178);
+    box = AMakeChoice(175, 175, 179);
   }
-  if ( box == 176 ) {
+  if ( box == 177 ) {
     lcd.clear();
     lcd.print(F("Du findest"));
     lcd.setCursor(0, 1);
     lcd.print(F("einen Helm"));
     Defense += 1;
     Button();
-    box = 177;
+    box = 178;
   }
-  if ( box == 177 ) {
+  if ( box == 178 ) {
     lcd.clear();
     lcd.print(F("und"));
     lcd.setCursor(0, 1);
     lcd.print(F("Goldmuenzen"));
     Goldmuenzen += 70;
     Button();
-    box = 178;
+    box = 179;
   }
-  if ( box == 178 ) {
+  if ( box == 179 ) {
     lcd.clear();
     lcd.print(F("Du setzt dich"));
     lcd.setCursor(0, 1);
     lcd.print(F("ans Lagerfeuer"));
     Button();
-    box = 179;
+    box = 180;
   }
-  if ( box == 179 ) {
+  if ( box == 180 ) {
     lcd.clear();
     lcd.print(F("Du legst dich"));
     lcd.setCursor(0, 1);
@@ -1750,189 +1738,180 @@ void loop()
       Health += 2;
     }
     Button();
-    box = 218;
+    box = 219;
   }
-  if ( box == 180 ) {
+  if ( box == 181 ) {
     lcd.clear();
     lcd.print(F("Du schleichst"));
     lcd.setCursor(0, 1);
     lcd.print(F("dich an"));
     Button();
-    box = 181;
+    box = 182;
   }
-  if ( box == 181 ) {
+  if ( box == 182 ) {
     lcd.clear();
     lcd.print(F("Was tust du?"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = makeChoice(182, 183);
+    box = makeChoice(183, 184);
   }
-  if ( box == 182 ) {
+  if ( box == 183 ) {
     lcd.clear();
     lcd.print(F("Angreifen"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(183, 183, 184);
+    box = AMakeChoice(184, 184, 185);
   }
-  if ( box == 183 ) {
+  if ( box == 184 ) {
     lcd.clear();
     lcd.print(F("Zurueckgehen"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = makeChoice(182, 182);
-    box = 152;
+    box = AMakeChoice(182, 182, 153);
   }
-  if ( box == 184 ) {
+  if ( box == 185 ) {
     lcd.clear();
     lcd.print(F("Du ueberraschst"));
     lcd.setCursor(0, 1);
     lcd.print(F("die Raueber"));
     Button();
-    box = 185;
+    box = 186;
   }
-  if ( box == 185 ) {
+  if ( box == 186 ) {
     lcd.clear();
     lcd.print(F("Du kannst einen"));
     lcd.setCursor(0, 1);
     lcd.print(F("ueberwaeltigen"));
     Button();
-    box = 186;
+    box = 187;
   }
-  if ( box == 186 ) {
+  if ( box == 187 ) {
     lcd.clear();
     lcd.print(F("Der andere"));
     lcd.setCursor(0, 1);
     lcd.print(F("greift dich an"));
     Button();
-    box = 187;
+    box = 188;
   }
-  if ( box == 187 ) {
+  if ( box == 188 ) {
     lcd.clear();
     lcd.print(F("Was tust du?"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = makeChoice(188, 190);
+    box = makeChoice(189, 191);
   }
-  if ( box == 188 ) {
+  if ( box == 189 ) {
     lcd.clear();
     lcd.print(F("Angreifen"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(189, 190, 195);
+    box = AMakeChoice(190, 191, 196);
   }
-  if ( box == 189 ) {
+  if ( box == 190 ) {
     lcd.clear();
     lcd.print(F("Beten"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(188, 190, 191);
+    box = AMakeChoice(189, 191, 192);
   }
-  if ( box == 190 ) {
+  if ( box == 191 ) {
     lcd.clear();
     lcd.print(F("Fliehen"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(188, 189, 197);
+    box = AMakeChoice(189, 190, 198);
   }
-  if ( box == 191 ) {
+  if ( box == 192 ) {
     EnemyHealth = 3;
     EnemyDefense = 2;
     EnemyGlaube = 1;
     EnemyAttack = 3;
-    box = 192;
+    box = 193;
   }
-  if ( box == 192 ) {
+  if ( box == 193 ) {
     if ( EnemyAttack - Defense > 0 ) {
       Health -= EnemyAttack - Defense;
       if ( Health < 1 ) {
-        box = 193;
+        box = 194;
       }
     }
     if ( Glaube - EnemyGlaube > 0 ) {
       EnemyHealth -= Glaube - EnemyGlaube;
       if ( EnemyHealth < 1 ) {
-        box = 194;
+        box = 195;
       }
     }
   }
-  if ( box == 193 ) {
+  if ( box == 194 ) {
     lcd.clear();
     lcd.print(F("Er toetet"));
     lcd.setCursor(0, 1);
     lcd.print(F("dich"));
     Button();
-    box = 104;
+    box = 105;
   }
-  if ( box == 194 ) {
+  if ( box == 195 ) {
     lcd.clear();
     lcd.print(F("Du besiegst"));
     lcd.setCursor(0, 1);
     lcd.print(F("ihn"));
     Button();
-    box = 173;
+    box = 174;
   }
-  if ( box == 195 ) {
+  if ( box == 196 ) {
     EnemyHealth = 3;
     EnemyDefense = 2;
     EnemyGlaube = 1;
     EnemyAttack = 3;
-    box = 168;
+    box = 169;
   }
-  if ( box == 196 ) {
+  if ( box == 197 ) {
     if ( EnemyAttack - Defense > 0 ) {
       Health -= EnemyAttack - Defense;
       if ( Health < 1 ) {
-        box = 193;
+        box = 194;
       }
     }
     if ( Attack - EnemyDefense > 0 ) {
       EnemyHealth -= Attack - EnemyDefense;
       if ( EnemyHealth < 1 ) {
-        box = 194;
+        box = 195;
       }
     }
   }
-  if ( box == 197 ) {
+  if ( box == 198 ) {
     Health -= 1;
     if ( Health < 1 ) {
-      box = 193;
+      box = 194;
     }
     lcd.clear();
     lcd.print(F("Du versuchst"));
     lcd.setCursor(0, 1);
     lcd.print(F("zu fliehen"));
     Button();
-    box = 198;
+    box = 199;
   }
-  if ( box == 198 ) {
+  if ( box == 199 ) {
     lcd.clear();
     lcd.print(F("Er holt dich"));
     lcd.setCursor(0, 1);
     lcd.print(F("ein"));
     Button();
-    box = 187;
+    box = 188;
   }
-  if ( box == 199 ) {
+  if ( box == 200 ) {
     lcd.clear();
     lcd.print(F("Du gehst"));
     lcd.setCursor(0, 1);
     lcd.print(F("nach Sueden"));
     Button();
-    box = 200;
-  }
-  if ( box == 200 ) {
-    lcd.clear();
-    lcd.print(F("Es wird"));
-    lcd.setCursor(0, 1);
-    lcd.print(F("Dunkel"));
-    Button();
     box = 201;
   }
   if ( box == 201 ) {
     lcd.clear();
-    lcd.print(F("Du hoerst"));
+    lcd.print(F("Es wird"));
     lcd.setCursor(0, 1);
-    lcd.print(F("ein Heulen"));
+    lcd.print(F("Dunkel"));
     Button();
     box = 202;
   }
@@ -1946,293 +1925,301 @@ void loop()
   }
   if ( box == 203 ) {
     lcd.clear();
+    lcd.print(F("Du hoerst"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("ein Heulen"));
+    Button();
+    box = 204;
+  }
+  if ( box == 204 ) {
+    lcd.clear();
     lcd.print(F("Was tust du?"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = makeChoice(204, 205);
+    box = makeChoice(205, 206);
   }
-  if ( box == 204 ) {
+  if ( box == 205 ) {
     lcd.clear();
     lcd.print(F("Hingehen"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(205, 205, 207);
+    box = AMakeChoice(206, 206, 208);
   }
-  if ( box == 205 ) {
+  if ( box == 206 ) {
     lcd.clear();
     lcd.print(F("Dich davon"));
     lcd.setCursor(0, 1);
     lcd.print(F("entfernen"));
-    box = AMakeChoice(204, 204, 206);
+    box = AMakeChoice(205, 205, 207);
   }
-  if ( box == 206 ) {
+  if ( box == 207 ) {
     lcd.clear();
     lcd.print(F("Du gehst von"));
     lcd.setCursor(0, 1);
     lcd.print(F("dem Heulen weg"));
     Button();
-    box = 207;
+    box = 208;
   }
-  if ( box == 207 ) {
+  if ( box == 208 ) {
     lcd.clear();
     lcd.print(F("Du bist sehr"));
     lcd.setCursor(0, 1);
     lcd.print(F("Muede und"));
     Button();
-    box = 208;
+    box = 209;
   }
-  if ( box == 208 ) {
+  if ( box == 209 ) {
     lcd.clear();
     lcd.print(F("verlaeufst dich"));
     lcd.setCursor(0, 1);
     lcd.print(F("im Wald"));
     Health -= 1;
     if ( Health < 1 ) {
-      box = 210;
+      box = 211;
     }
     else if ( Health > 0 ) {
-      box = 209;
+      box = 210;
     }
     Button();
   }
-  if ( box == 209 ) {
+  if ( box == 210 ) {
     lcd.clear();
     lcd.print(F("Du schlaefst"));
     lcd.setCursor(0, 1);
     lcd.print(F("irgendwann ein"));
     Button();
-    box = 211;
+    box = 212;
   }
-  if ( box == 210 ) {
+  if ( box == 211 ) {
     lcd.clear();
     lcd.print(F("Du faellst"));
     lcd.setCursor(0, 1);
     lcd.print(F("vor Muedigkeit"));
     Button();
-    box = 212;
+    box = 211;
   }
-  if ( box == 211 ) {
+  if ( box == 212 ) {
     lcd.clear();
     lcd.print(F("und wachst am na"));
     lcd.setCursor(0, 1);
     lcd.print(F("echsten Tag auf"));
     Button();
-    box = 213;
+    box = 214;
   }
-  if ( box == 212 ) {
+  if ( box == 213 ) {
     lcd.clear();
     lcd.print(F("um und faellst"));
     lcd.setCursor(0, 1);
     lcd.print(F("in einen Fluss"));
     Button();
-    box = 104;
+    box = 105;
   }
-  if ( box == 213 ) {
+  if ( box == 214 ) {
     lcd.clear();
     lcd.print(F("Du siehst eine"));
     lcd.setCursor(0, 1);
     lcd.print(F("verlassene Burg"));
     Button();
-    box = 231;
+    box = 232;
   }
-  if ( box == 214 ) {
+  if ( box == 215 ) {
     lcd.clear();
     lcd.print(F("Du gehst"));
     lcd.setCursor(0, 1);
     lcd.print(F("zu ihm"));
     Button();
-    box = 215;
-  }
-  if ( box == 215 ) {
-    lcd.clear();
-    lcd.print(F("Willst du"));
-    lcd.setCursor(0, 1);
-    lcd.print(F("etwas kaufen?"));
-    box = makeChoice(219, 216);
+    box = 216;
   }
   if ( box == 216 ) {
     lcd.clear();
     lcd.print(F("Willst du"));
     lcd.setCursor(0, 1);
-    lcd.print(F("zurueckgehen?"));
-    box = makeChoice(23, 226);
+    lcd.print(F("etwas kaufen?"));
+    box = makeChoice(220, 217);
   }
   if ( box == 217 ) {
     lcd.clear();
     lcd.print(F("Willst du"));
     lcd.setCursor(0, 1);
     lcd.print(F("zurueckgehen?"));
-    box = makeChoice(23, 34);
+    box = makeChoice(24, 227);
   }
   if ( box == 218 ) {
+    lcd.clear();
+    lcd.print(F("Willst du"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("zurueckgehen?"));
+    box = makeChoice(24, 35);
+  }
+  if ( box == 219 ) {
     lcd.clear();
     lcd.print(F("Du wachst spaet"));
     lcd.setCursor(0, 1);
     lcd.print(F("morgens auf"));
     Button();
-    box = 213;
+    box = 214;
   }
-  if ( box == 219 ) {
+  if ( box == 220 ) {
     lcd.clear();
     lcd.print(F("Er bietet"));
     lcd.setCursor(0, 1);
     lcd.print(F("dir..."));
-    box = makeChoice(220, 222);
+    box = makeChoice(221, 223);
   }
-  if ( box == 220 ) {
+  if ( box == 221 ) {
     if ( Menge9 > 0 ) {
       lcd.clear();
       lcd.print(F("Goldenes Pulver"));
       lcd.setCursor(0, 1);
       lcd.print(F("fuer 5 Gold an"));
-      box = AMakeChoice(221, 223, 225);
-      if ( box == 225 ) {
+      box = AMakeChoice(222, 224, 226);
+      if ( box == 226 ) {
         if ( Goldmuenzen > 5 ) {
-          box = 225;
+          box = 226;
           Menge9 -= 1;
           Goldmuenzen -= 5;
           Ware += 2;
         }
         else {
-          box = 224;
+          box = 225;
         }
       }
     }
     else if ( Menge9 < 1 ) {
-      box = 221;
+      box = 222;
     }
   }
-  if ( box == 221 ) {
+  if ( box == 222 ) {
     if ( Menge10 > 0 ) {
       lcd.clear();
       lcd.print(F("Das TOTE BUCH"));
       lcd.setCursor(0, 1);
       lcd.print(F("fuer 100 Gold an"));
-      box = AMakeChoice(222, 220, 225);
-      if ( box == 225 ) {
+      box = AMakeChoice(223, 221, 226);
+      if ( box == 226 ) {
         if ( Goldmuenzen > 100 ) {
-          box = 225;
+          box = 226;
           Goldmuenzen -= 100;
           Glaube += 5;
           Menge10 -= 1;
         }
         else {
-          box = 224;
+          box = 225;
         }
       }
     }
     else if ( Menge10 < 1 ) {
-      box = 222;
+      box = 223;
     }
   }
-  if ( box == 222 ) {
+  if ( box == 223 ) {
     if ( Menge11 > 0 ) {
       Menge11 -= 1;
       lcd.clear();
       lcd.print(F("Ein Easteregg"));
       lcd.setCursor(0, 1);
       lcd.print(F("fuer 0 Gold an"));
-      box = AMakeChoice(223, 221, 227);
+      box = AMakeChoice(224, 222, 228);
     }
     else if ( Menge11 < 1 ) {
-      box = 223;
+      box = 224;
     }
   }
-  if ( box == 223 ) {
+  if ( box == 224 ) {
     lcd.clear();
     lcd.print(F("Doch nichts"));
     lcd.setCursor(0, 1);
     lcd.print(F("kaufen"));
-    box = AMakeChoice(220, 222, 226);
+    box = AMakeChoice(221, 223, 227);
   }
-  if ( box == 224 ) {
+  if ( box == 225 ) {
     lcd.clear();
     lcd.print(F("Du hast nicht"));
     lcd.setCursor(0, 1);
     lcd.print(F("genug Gold"));
     Button();
-    box = 225;
+    box = 226;
   }
-  if ( box == 225 ) {
+  if ( box == 226 ) {
     lcd.clear();
     lcd.print(F("Willst du noch"));
     lcd.setCursor(0, 1);
     lcd.print(F("etwas kaufen?"));
-    box = makeChoice(219, 226);
+    box = makeChoice(220, 227);
   }
-  if ( box == 226 ) {
+  if ( box == 227 ) {
     lcd.clear();
     lcd.print(F("Willst du"));
     lcd.setCursor(0, 1);
     lcd.print(F("zur Burg gehen?"));
-    box = makeChoice(21, 215);
+    box = makeChoice(22, 216);
   }
-  if ( box == 227 ) {
+  if ( box == 228 ) {
     lcd.clear();
     lcd.print(F("Herzlichen"));
     lcd.setCursor(0, 1);
     lcd.print(F("Glueckwunsch!"));
     Button();
-    box = 228;
+    box = 229;
   }
-  if ( box == 228 ) {
+  if ( box == 229 ) {
     lcd.clear();
     lcd.print(F("Du hast das East"));
     lcd.setCursor(0, 1);
     lcd.print(F("eregg gefunden"));
     Button();
-    box = 229;
+    box = 230;
   }
-  if ( box == 229 ) {
+  if ( box == 230 ) {
     lcd.clear();
     lcd.print(F("Willst du eine"));
     lcd.setCursor(0, 1);
     lcd.print(F("Belohnung haben?"));
     Easteregg = 1;
-    box = makeChoice(230, 225);
+    box = makeChoice(231, 226);
   }
-  if ( box == 230 ) {
+  if ( box == 231 ) {
     lcd.clear();
     lcd.print(F("Du hast etwas"));
     lcd.setCursor(0, 1);
     lcd.print(F("Gold erhalten"));
     Goldmuenzen += 5;
     Button();
-    box = 225;
+    box = 226;
   }
-  if ( box == 231 ) {
+  if ( box == 232 ) {
     lcd.clear();
     lcd.print(F("Du hast es"));
     lcd.setCursor(0, 1);
     lcd.print(F("geschafft"));
     Button();
-    box = 232;
+    box = 233;
   }
-  if ( box == 232 ) {
+  if ( box == 233 ) {
     lcd.clear();
     lcd.print(F("Du hast"));
     lcd.setCursor(0, 1);
     lcd.print(F("das"));
     Button();
-    box = 233;
+    box = 234;
   }
-  if ( box == 233 ) {
+  if ( box == 234 ) {
     lcd.clear();
     lcd.print(F("Spiel"));
     lcd.setCursor(0, 1);
     lcd.print(F("durchgespielt"));
     Button();
-    box = 234;
+    box = 235;
   }
-  if ( box == 234 ) {
+  if ( box == 235 ) {
     lcd.clear();
     lcd.print(F("Herzlichen"));
     lcd.setCursor(0, 1);
     lcd.print(F("Glueckwunsch!"));
     Button();
-    box = 235;
+    box = 236;
   }
-  if ( box == 235 ) {
+  if ( box == 236 ) {
     if ( Easteregg == 1 ) {
       lcd.clear();
       lcd.print(F("Du hast"));
