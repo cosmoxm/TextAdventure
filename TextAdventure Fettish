@@ -1796,7 +1796,7 @@ void loop()
     lcd.print(F("Angreifen"));
     lcd.setCursor(0, 1);
     lcd.print(F(""));
-    box = AMakeChoice(188, 189, 196);
+    box = AMakeChoice(188, 189, 194);
   }
   if ( box == 188 ) {
     lcd.clear();
