@@ -30,12 +30,12 @@ rgb_lcd lcd;
 int box;
 int sensorValue1;
 int sensorValue2;
-int Goldmuenzen;         // Die Waehrung (je mehr du hast desto besser)
-int Defense;            // Deine Ruestung (Verteidigung)
-int Attack;             // Dein Angriff/Schaden den du verursachst
-int Health;             // Dein Leben (bei 0 bist du TOT)
-int Glaube;            // Gott ist mit dir (oder auch nicht)
-int Menge1;            // Sachen beim Haendler (begrenzt)
+int Goldmuenzen;                    // Die Waehrung (je mehr du hast desto besser)
+int Defense;                        // Deine Ruestung (Verteidigung)
+int Attack;                         // Dein Angriff/Schaden den du verursachst
+int Health;                         // Dein Leben (bei 0 bist du TOT)
+int Glaube;                         // Gott ist mit dir (oder auch nicht)
+int Menge1;                         // Sachen beim Haendler (begrenzt)
 int Menge2;
 int Menge3;
 int Menge4;
@@ -46,15 +46,15 @@ int Menge8;
 int Menge9;
 int Menge10;
 int Menge11;
-int Gegner1;           // ob der Gegner schon besiegt wurde
-int Haendler1;         // ob der AnfangsHaendler aktiviert ist
-int Easteregg;         // ob du das Easteregg gefunden hast
-int Ware;              // Dinge zum Verkaufen
-int EnemyHealth;        // gegnerisches Leben
-int EnemyDefense;       // gegnerische Ruestung
-int EnemyAttack;        // gegnericher Schaden/Angriff
-int EnemyGlaube;        // gegnerischer Segen Gottes
-void setup() {
+int Gegner1;                        // ob der Gegner schon besiegt wurde
+int Haendler1;                      // ob der AnfangsHaendler aktiviert ist
+int Easteregg;                      // ob du das Easteregg gefunden hast
+int Ware;                           // Dinge zum Verkaufen
+int EnemyHealth;                    // gegnerisches Leben
+int EnemyDefense;                   // gegnerische Ruestung
+int EnemyAttack;                    // gegnericher Schaden/Angriff
+int EnemyGlaube;                    // gegnerischer Segen Gottes
+void setup() 
   pinMode(pinButton, INPUT);
   lcd.begin(16, 2);
   Serial.begin(9600);
@@ -749,6 +749,7 @@ void loop()
       if ( box == 70 ) {
         Goldmuenzen -= 30;
         Menge4 -= 1;
+        Ware += 10;
       }
     }
   }
