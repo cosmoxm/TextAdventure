@@ -1,0 +1,112 @@
+int incomingByte = 0;
+int box;
+int room_x, room_y;
+int geld = 0;
+
+
+typedef struct room_struct {
+  char *baumnr;
+  int geld;
+} room_struct;
+
+struct room_struct room_data[3][3] = {
+
+  {
+    { .baumnr = "Du bist in dem Nord-Westlichen Raum", .geld = 0 },
+    { .baumnr = "Du bist in dem Noerdlichen Raum", .geld = 10 },
+    { .baumnr = "Du bist in dem Nord-Oestlichen Raum", .geld = 100 },
+  },
+  {
+    { .baumnr = "Du bist in dem Westlichen Raum", .geld = 0 },
+    { .baumnr = "Du bist in dem Startraum", .geld = 0 },
+    { .baumnr = "Du bist in dem Oestlichen Raum", .geld = 70 },
+  },
+  {
+    { .baumnr = "Du bist in dem Sued-Westlichen Raum", .geld = 50 },
+    { .baumnr = "Du bist in dem Suedlichen Raum", .geld = 30 },
+    { .baumnr = "Du bist in dem Sued-Oestlichen Raum", .geld = 0 },
+  }
+
+};
+
+void setup() {
+  Serial.begin(9600);
+  room_y = 1;
+  room_x = 1;
+}
+
+void loop() {
+
+  Serial.println(room_data[room_y][room_x].baumnr);
+  while ( Serial.available() == 0 ) {
+    delay( 10 );
+  }
+
+  incomingByte = Serial.read();
+
+  //Serial.println(incomingByte, DEC);
+
+  // a == wahr    97
+  // w == oben    119
+  // s == unten   115
+  // d == falsch  100
+  // space == eingabe 32
+
+  switch ( incomingByte ) {
+    case 'w':
+      Serial.println("Du gehst nach Norden");
+      if ( room_y > 0 ) {
+        room_y -= 1;
+      }
+      else {
+        Serial.println("Du laeufst gegen eine Wand");
+        Serial.println("Aua!");
+      }
+      break;
+
+    case 'd':
+      Serial.println("Du gehst nach Osten");
+      if ( room_x < 2 ) {
+        room_x += 1;
+      }
+      else {
+        Serial.println("Du laeufst gegen eine Wand");
+        Serial.println("Aua!");
+      }
+      break;
+
+    case 's':
+      Serial.println("Du gehst nach Sueden");
+      if ( room_y < 2 ) {
+        room_y += 1;
+      }
+      else {
+        Serial.println("Du laeufst gegen eine Wand");
+        Serial.println("Aua!");
+      }
+      break;
+
+    case 'a':
+      Serial.println("Du gehst nach Westen");
+      if ( room_x > 0 ) {
+        room_x -= 1;
+      }
+      else {
+        Serial.println("Du laeufst gegen eine Wand");
+        Serial.println("Aua!");
+      }
+      break;
+  }
+  if ( room_data[room_y][room_x].geld > 0 ) {
+    Serial.print("Du findest ");
+    Serial.print(room_data[room_y][room_x].geld, DEC );
+    Serial.println(" Goldstuecke");
+    geld += room_data[room_y][room_x].geld;
+    room_data[room_y][room_x].geld = 0;
+    Serial.print("Du hast jetzt ");
+    Serial.print(geld, DEC );
+    Serial.println(" Goldstuecke");
+
+  }
+
+}
